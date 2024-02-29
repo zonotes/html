@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock with Multiple Progress Bars</title>
+    <style>
+        body, html {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .clock {
+            font-size: 60px;
+            font-weight: bold; /* 폰트 굵게 */
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            width: 250px; /* 프로그레스 바 너비 확장 */
+            height: 40px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px; /* 프로그레스 바 간 간격 조정 */
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 1s;
+        }
+
+        .hour-bar {
+            background-color: #4caf50; /* 1시간 프로그레스 바 색상 */
+        }
+
+        .half-hour-bar {
+            background-color: #2196F3; /* 30분 프로그레스 바 색상 */
+        }
+
+        .ten-minute-bar {
+            background-color: #f44336; /* 10분 프로그레스 바 색상 */
+        }
+
+        .one-minute-bar {
+            background-color: #9C27B0; /* 1분 프로그레스 바 색상 */
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+    <div class="progress-bar-container">
+        <div class="progress-bar hour-bar" id="progressBarHour"></div>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar half-hour-bar" id="progressBarHalfHour"></div>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar ten-minute-bar" id="progressBarTenMinutes"></div>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar one-minute-bar" id="progressBarOneMinute"></div>
+    </div>
+    <script>
+        function updateClockAndProgressBars() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 시간이 '0'이면 '12'로 변경
+            const clockElement = document.getElementById('clock');
+            clockElement.innerText = `${hours}:${minutes}:${seconds} `;
+
+            // 1시간 기준 프로그레스 바 업데이트
+            updateProgressBar('progressBarHour', now, 60);
+
+            // 30분 기준 프로그레스 바 업데이트
+            updateProgressBar('progressBarHalfHour', now, 30);
+
+            // 10분 기준 프로그레스 바 업데이트
+            updateProgressBar('progressBarTenMinutes', now, 10);
+
+            // 1분 기준 프로그레스 바 업데이트
+            updateProgressBar('progressBarOneMinute', now, 1);
+
+            setTimeout(updateClockAndProgressBars, 1000); // 1초마다 업데이트
+        }
+
+        function updateProgressBar(barId, currentTime, interval) {
+            const startOfPeriod = new Date(currentTime);
+            startOfPeriod.setMinutes(currentTime.getMinutes() - (currentTime.getMinutes() % interval), 0, 0);
+            startOfPeriod.setSeconds(currentTime.getSeconds() - currentTime.getSeconds(), 0); // 1분 프로그레스 바를 위해 초도 초기화
+            const endOfPeriod = new Date(startOfPeriod.getTime() + interval * 60 * 1000);
+            const progress = ((currentTime - startOfPeriod) / (endOfPeriod - startOfPeriod)) * 100;
+            document.getElementById(barId).style.width = `${progress}%`;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateClockAndProgressBars);
+    </script>
+</body>
+</html>
