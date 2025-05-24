@@ -60,12 +60,6 @@
             font-weight: bold;
         }
         
-        .question-kr {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
         .choices-container {
             margin-bottom: 20px;
         }
@@ -110,18 +104,13 @@
             flex-grow: 1;
         }
         
-        .choice-kr {
-            color: var(--secondary-color);
-            margin-top: 5px;
-            font-size: 0.95rem;
-        }
-        
         .button-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             margin-top: 20px;
+            margin-bottom: 20px;
         }
         
         button {
@@ -216,6 +205,38 @@
             color: var(--danger-color);
         }
         
+        .translation-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        
+        .translation-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-translation {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .choice-translation {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .choice-translation-label {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 30px;
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -225,7 +246,7 @@
                 padding: 15px;
             }
             
-            .question-text, .question-kr {
+            .question-text {
                 font-size: 1rem;
             }
             
@@ -254,7 +275,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>시험문제 풀이 TEST</h1>
+            <h1>SFMC DC 퀴즈</h1>
         </div>
         
         <div class="progress-container">
@@ -267,7 +288,6 @@
         <div class="question-container">
             <div class="question-number" id="question-number"></div>
             <div class="question-text" id="question-text"></div>
-            <div class="question-kr" id="question-kr"></div>
         </div>
         
         <div class="choices-container" id="choices-container"></div>
@@ -278,6 +298,18 @@
             <div class="answer-display" id="answer-display"></div>
             <button class="check-button" id="check-button">정답 확인</button>
             <button class="next-button" id="next-button">다음 문제</button>
+        </div>
+        
+        <div class="translation-container" id="translation-container">
+            <div class="translation-title">한글 번역</div>
+            <div class="question-translation" id="question-kr"></div>
+            <div id="choices-kr-container"></div>
+        </div>
+        
+        <!-- 디버깅 정보 섹션 추가 -->
+        <div id="debug-section" style="margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 15px; font-size: 12px; display: none;">
+            <h3>디버깅 정보</h3>
+            <div id="debug-info"></div>
         </div>
     </div>
 
@@ -290,6 +322,7 @@
         let selectedChoices = new Set();
         let answeredQuestions = new Set();
         let isAnswered = false;
+        let debugMode = false; // 디버깅 모드 비활성화
         
         // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', async function() {
@@ -320,8 +353,79 @@
                 
                 // 로컬 실행 시 JSON 로드 오류 대응
                 alert('문제 데이터를 로드할 수 없습니다. 웹 서버를 통해 페이지를 열어주세요.\n(예: VS Code의 Live Server 또는 http-server 이용)');
+                
+                // 테스트용 로컬 데이터 (실제 배포 시 제거)
+                console.log('테스트 데이터를 사용합니다.');
+                questionsEn = [
+                    {
+                        "question_no": 1,
+                        "question": "단일 정답 테스트 질문입니다.",
+                        "choices": {
+                            "A.": "선택지 A",
+                            "B.": "선택지 B",
+                            "C.": "선택지 C",
+                            "D.": "선택지 D"
+                        },
+                        "answer": "C"
+                    },
+                    {
+                        "question_no": 2,
+                        "question": "다중 정답 테스트 질문입니다.",
+                        "choices": {
+                            "A.": "선택지 A",
+                            "B.": "선택지 B",
+                            "C.": "선택지 C",
+                            "D.": "선택지 D"
+                        },
+                        "answer": ["A", "C"]
+                    }
+                ];
+                questionsKr = [
+                    {
+                        "question_no": 1,
+                        "question": "단일 정답 테스트 질문입니다.",
+                        "choices": {
+                            "A.": "선택지 A",
+                            "B.": "선택지 B",
+                            "C.": "선택지 C",
+                            "D.": "선택지 D"
+                        }
+                    },
+                    {
+                        "question_no": 2,
+                        "question": "다중 정답 테스트 질문입니다.",
+                        "choices": {
+                            "A.": "선택지 A",
+                            "B.": "선택지 B",
+                            "C.": "선택지 C",
+                            "D.": "선택지 D"
+                        }
+                    }
+                ];
+                initQuiz();
             }
         });
+
+        // 디버그 정보 출력 함수
+        function logDebug(message, data) {
+            if (debugMode) {
+                console.log(message, data);
+                
+                const debugSection = document.getElementById('debug-section');
+                const debugInfo = document.getElementById('debug-info');
+                
+                debugSection.style.display = 'block';
+                
+                const debugItem = document.createElement('div');
+                debugItem.style.marginBottom = '10px';
+                debugItem.innerHTML = `
+                    <strong>${message}</strong>: 
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+                
+                debugInfo.appendChild(debugItem);
+            }
+        }
 
         // 퀴즈 초기화
         function initQuiz() {
@@ -331,10 +435,20 @@
             // 버튼 이벤트 리스너 등록
             document.getElementById('check-button').addEventListener('click', checkAnswer);
             document.getElementById('next-button').addEventListener('click', showNextQuestion);
+            
+            // 디버그 모드 설정
+            if (debugMode) {
+                document.getElementById('debug-section').style.display = 'block';
+            }
         }
         
         // 다음 문제 표시
         function showNextQuestion() {
+            // 디버그 정보 초기화
+            if (debugMode) {
+                document.getElementById('debug-info').innerHTML = '';
+            }
+            
             // 이미 답변한 모든 문제를 풀었다면 처음부터 다시 시작
             if (answeredQuestions.size === questionsEn.length) {
                 alert('모든 문제를 풀었습니다! 처음부터 다시 시작합니다.');
@@ -350,22 +464,41 @@
             currentQuestionKr = questionsKr.find(q => q.question_no === currentQuestion.question_no);
             
             if (!currentQuestionKr) {
-                currentQuestionKr = { 
-                    question_kr: "[한글 번역 없음]", 
-                    choices_kr: Object.fromEntries(
-                        Object.entries(currentQuestion.choices).map(([key, val]) => [key, "[한글 번역 없음]"])
-                    )
-                };
+                console.warn(`문제 ${currentQuestion.question_no}에 대한 한글 번역을 찾을 수 없습니다.`);
+                currentQuestionKr = { question: "", choices: {} };
             }
             
             // 문제 정보 표시
             document.getElementById('question-number').textContent = `문제 ${currentQuestion.question_no}`;
             document.getElementById('question-text').textContent = currentQuestion.question;
-            document.getElementById('question-kr').textContent = currentQuestionKr.question_kr;
+            
+            // 한글 질문 표시 (qu_kr 파일 구조에 따라 다르게 처리)
+            const questionKr = currentQuestionKr.question_kr || currentQuestionKr.question || "";
+            document.getElementById('question-kr').textContent = questionKr || currentQuestion.question;
+            
+            // 디버깅을 위한 정보 출력
+            logDebug('현재 문제', currentQuestion);
+            logDebug('정답 형식', {
+                type: typeof currentQuestion.answer, 
+                value: currentQuestion.answer,
+                isArray: Array.isArray(currentQuestion.answer)
+            });
+            
+            // 다중 정답인 경우 UI에 안내 표시
+            const isMultiAnswer = Array.isArray(currentQuestion.answer) && currentQuestion.answer.length > 1;
+            let multiAnswerHint = '';
+            if (isMultiAnswer) {
+                multiAnswerHint = '<div style="color: #e74c3c; font-weight: bold; margin-top: 10px;">* 이 문제는 정답이 여러 개입니다. 해당되는 모든 항목을 선택하세요.</div>';
+                document.querySelector('.question-container').insertAdjacentHTML('beforeend', multiAnswerHint);
+            }
             
             // 선택지 컨테이너 초기화
             const choicesContainer = document.getElementById('choices-container');
             choicesContainer.innerHTML = '';
+            
+            // 한글 선택지 컨테이너 초기화
+            const choicesKrContainer = document.getElementById('choices-kr-container');
+            choicesKrContainer.innerHTML = '';
             
             // 선택지 순서 섞기
             const choiceKeys = Object.keys(currentQuestion.choices);
@@ -377,11 +510,11 @@
                 choiceItem.className = 'choice-item';
                 choiceItem.dataset.choice = key;
                 
+                // 영문 선택지 표시
                 choiceItem.innerHTML = `
                     <div class="choice-label">${key}</div>
                     <div class="choice-content">
                         <div class="choice-text">${currentQuestion.choices[key]}</div>
-                        <div class="choice-kr">${currentQuestionKr.choices_kr?.[key] || "[한글 번역 없음]"}</div>
                     </div>
                 `;
                 
@@ -395,10 +528,33 @@
                             selectedChoices.add(key);
                             this.classList.add('selected');
                         }
+                        
+                        // 디버깅을 위한 정보 출력
+                        logDebug('현재 선택된 항목', Array.from(selectedChoices));
                     }
                 });
                 
                 choicesContainer.appendChild(choiceItem);
+                
+                // 한글 선택지 가져오기 (qu_kr 파일 구조에 따라 다르게 처리)
+                let choiceKr = "";
+                if (currentQuestionKr.choices_kr && currentQuestionKr.choices_kr[key]) {
+                    choiceKr = currentQuestionKr.choices_kr[key];
+                } else if (currentQuestionKr.choices && currentQuestionKr.choices[key]) {
+                    choiceKr = currentQuestionKr.choices[key];
+                } else {
+                    choiceKr = currentQuestion.choices[key]; // 한글 번역이 없으면 영문 사용
+                }
+                
+                // 한글 선택지 표시 (별도 섹션에)
+                const choiceKrItem = document.createElement('div');
+                choiceKrItem.className = 'choice-translation';
+                choiceKrItem.innerHTML = `
+                    <div class="choice-translation-label">${key}</div>
+                    <div>${choiceKr}</div>
+                `;
+                
+                choicesKrContainer.appendChild(choiceKrItem);
             });
             
             // 피드백 초기화
@@ -436,19 +592,91 @@
             const feedback = document.getElementById('feedback');
             const answerDisplay = document.getElementById('answer-display');
             
-            // 정답 처리 (단일 정답 또는 복수 정답)
-            let correctAnswers = Array.isArray(currentQuestion.answer) 
-                ? currentQuestion.answer 
-                : [currentQuestion.answer];
+            // 정답 추출 및 정규화
+            let originalAnswers = [];
             
-            // 선택한 항목과 정답 비교
-            const isCorrect = correctAnswers.length === selectedChoices.size && 
-                              correctAnswers.every(answer => selectedChoices.has(answer));
+            // 정답 형식에 따른 처리
+            if (typeof currentQuestion.answer === 'string') {
+                // 문자열 형식 처리
+                if (currentQuestion.answer.includes(',')) {
+                    // 콤마로 구분된 다중 정답 (예: "A,B" 또는 "A,B,C")
+                    originalAnswers = currentQuestion.answer.split(',').map(a => a.trim());
+                    logDebug('콤마로 구분된 다중 정답 감지', originalAnswers);
+                } else {
+                    // 단일 정답 (문자열)
+                    originalAnswers = [currentQuestion.answer];
+                }
+            } else if (Array.isArray(currentQuestion.answer)) {
+                // 다중 정답 (배열)
+                originalAnswers = currentQuestion.answer;
+            } else if (typeof currentQuestion.answer === 'object' && currentQuestion.answer !== null) {
+                // 객체 형태의 정답 (일부 JSON 형식에서 가능)
+                originalAnswers = Object.values(currentQuestion.answer);
+            } else {
+                console.error('알 수 없는 정답 형식:', currentQuestion.answer);
+                originalAnswers = [];
+            }
             
-            // 선택한 항목들과 정답 항목들 표시
+            // 원본 정답 데이터 보존 (표시용)
+            const displayAnswers = [...originalAnswers];
+            
+            // 정답 정규화 (비교용)
+            const normalizedAnswers = originalAnswers.map(answer => {
+                // 문자열로 변환 후 점(.)을 제거하고 소문자로 변환
+                return String(answer).trim().replace(/\.$/g, '').toLowerCase();
+            });
+            
+            // 사용자 선택 정규화
+            const normalizedSelectedChoices = Array.from(selectedChoices).map(choice => {
+                // 점(.)을 제거하고 소문자로 변환
+                return choice.trim().replace(/\.$/g, '').toLowerCase();
+            });
+            
+            // 디버깅 정보 출력
+            logDebug('문제 번호', currentQuestion.question_no);
+            logDebug('원본 정답', currentQuestion.answer);
+            logDebug('변환된 원본 정답', originalAnswers);
+            logDebug('정규화된 정답', normalizedAnswers);
+            logDebug('사용자 선택', Array.from(selectedChoices));
+            logDebug('정규화된 사용자 선택', normalizedSelectedChoices);
+            
+            // 정답 비교 (정규화된 형태로 비교)
+            let isCorrect = false;
+            
+            // 정답과 선택지의 개수가 같고 내용이 일치하는지 확인
+            if (normalizedAnswers.length === normalizedSelectedChoices.length) {
+                // 모든 정답이 선택되었는지 확인
+                const allAnswersSelected = normalizedAnswers.every(answer => {
+                    return normalizedSelectedChoices.includes(answer);
+                });
+                
+                // 모든 선택이 정답인지 확인
+                const allSelectionsCorrect = normalizedSelectedChoices.every(choice => {
+                    return normalizedAnswers.includes(choice);
+                });
+                
+                // 양방향 모두 일치해야 정답으로 인정
+                isCorrect = allAnswersSelected && allSelectionsCorrect;
+                
+                logDebug('모든 정답이 선택됨', allAnswersSelected);
+                logDebug('모든 선택이 정답임', allSelectionsCorrect);
+            }
+            
+            logDebug('최종 정답 여부', isCorrect);
+            
+            // 선택한 항목들에 정답 여부 표시
             selectedChoices.forEach(choice => {
                 const item = document.querySelector(`.choice-item[data-choice="${choice}"]`);
-                if (correctAnswers.includes(choice)) {
+                if (!item) {
+                    console.warn(`선택한 항목 엘리먼트를 찾을 수 없음: ${choice}`);
+                    return;
+                }
+                
+                // 정규화하여 비교
+                const normalizedChoice = choice.replace(/\.$/g, '').toLowerCase();
+                const isChoiceCorrect = normalizedAnswers.includes(normalizedChoice);
+                
+                if (isChoiceCorrect) {
                     item.classList.add('correct');
                 } else {
                     item.classList.add('incorrect');
@@ -456,10 +684,14 @@
             });
             
             // 선택하지 않은 정답 표시
-            correctAnswers.forEach(answer => {
-                if (!selectedChoices.has(answer)) {
-                    const item = document.querySelector(`.choice-item[data-choice="${answer}"]`);
-                    if (item) {
+            document.querySelectorAll('.choice-item').forEach(item => {
+                const choice = item.dataset.choice;
+                if (!selectedChoices.has(choice)) {
+                    // 정규화하여 비교
+                    const normalizedChoice = choice.replace(/\.$/g, '').toLowerCase();
+                    const isCorrectAnswer = normalizedAnswers.includes(normalizedChoice);
+                    
+                    if (isCorrectAnswer) {
                         item.classList.add('correct');
                     }
                 }
@@ -469,14 +701,21 @@
             if (isCorrect) {
                 feedback.textContent = '정답입니다! 👍';
                 feedback.classList.add('correct');
-                answerDisplay.textContent = `정답: ${correctAnswers.join(', ')}`;
-                answerDisplay.classList.add('correct');
             } else {
-                feedback.textContent = `오답입니다.`;
+                feedback.textContent = '오답입니다.';
                 feedback.classList.add('incorrect');
-                answerDisplay.textContent = `정답: ${correctAnswers.join(', ')}`;
-                answerDisplay.classList.add('incorrect');
             }
+            
+            // 표시할 정답 형식 지정
+            let answerText = '';
+            if (displayAnswers.length === 1) {
+                answerText = `정답: ${displayAnswers[0]}`;
+            } else {
+                answerText = `정답: ${displayAnswers.join(', ')}`;
+            }
+            
+            answerDisplay.textContent = answerText;
+            answerDisplay.classList.add(isCorrect ? 'correct' : 'incorrect');
             
             feedback.style.display = 'block';
             answerDisplay.style.display = 'block';
