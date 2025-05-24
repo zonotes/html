@@ -119,6 +119,7 @@
         .button-container {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 10px;
             margin-top: 20px;
         }
@@ -193,6 +194,28 @@
             margin-top: 5px;
         }
         
+        .answer-display {
+            font-weight: bold;
+            margin-right: 15px;
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        
+        .answer-display.correct {
+            background-color: rgba(40, 167, 69, 0.2);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .answer-display.incorrect {
+            background-color: rgba(220, 53, 69, 0.2);
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -212,6 +235,13 @@
             
             .button-container {
                 flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .answer-display {
+                margin-right: 0;
+                margin-bottom: 10px;
+                text-align: center;
             }
             
             button {
@@ -245,6 +275,7 @@
         <div class="feedback" id="feedback"></div>
         
         <div class="button-container">
+            <div class="answer-display" id="answer-display"></div>
             <button class="check-button" id="check-button">정답 확인</button>
             <button class="next-button" id="next-button">다음 문제</button>
         </div>
@@ -252,24 +283,43 @@
 
     <script>
         // 전역 변수
-        let questions = [];
+        let questionsEn = [];
+        let questionsKr = [];
         let currentQuestion = null;
-        let selectedChoice = null;
+        let currentQuestionKr = null;
+        let selectedChoices = new Set();
         let answeredQuestions = new Set();
         let isAnswered = false;
         
         // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', async function() {
             try {
-                // JSON 파일 로드
-                const response = await fetch('q.json');
-                questions = await response.json();
+                // JSON 파일 로드 - 서버 통한 실행 필요
+                const [responseEn, responseKr] = await Promise.all([
+                    fetch('qu_en.json').then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    }),
+                    fetch('qu_kr.json').then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                ]);
+                
+                questionsEn = responseEn;
+                questionsKr = responseKr;
                 
                 // 페이지 초기화
                 initQuiz();
             } catch (error) {
                 console.error('데이터를 로드하는 중 오류가 발생했습니다:', error);
-                alert('문제 데이터를 로드할 수 없습니다. 페이지를 새로고침하거나 나중에 다시 시도해주세요.');
+                
+                // 로컬 실행 시 JSON 로드 오류 대응
+                alert('문제 데이터를 로드할 수 없습니다. 웹 서버를 통해 페이지를 열어주세요.\n(예: VS Code의 Live Server 또는 http-server 이용)');
             }
         });
 
@@ -286,19 +336,32 @@
         // 다음 문제 표시
         function showNextQuestion() {
             // 이미 답변한 모든 문제를 풀었다면 처음부터 다시 시작
-            if (answeredQuestions.size === questions.length) {
+            if (answeredQuestions.size === questionsEn.length) {
                 alert('모든 문제를 풀었습니다! 처음부터 다시 시작합니다.');
                 answeredQuestions.clear();
             }
             
             // 아직 답변하지 않은 랜덤 문제 선택
-            let availableQuestions = questions.filter(q => !answeredQuestions.has(q.question_no));
-            currentQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            let availableQuestions = questionsEn.filter(q => !answeredQuestions.has(q.question_no));
+            let randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            currentQuestion = availableQuestions[randomIndex];
+            
+            // 해당 한글 문제 찾기
+            currentQuestionKr = questionsKr.find(q => q.question_no === currentQuestion.question_no);
+            
+            if (!currentQuestionKr) {
+                currentQuestionKr = { 
+                    question_kr: "[한글 번역 없음]", 
+                    choices_kr: Object.fromEntries(
+                        Object.entries(currentQuestion.choices).map(([key, val]) => [key, "[한글 번역 없음]"])
+                    )
+                };
+            }
             
             // 문제 정보 표시
             document.getElementById('question-number').textContent = `문제 ${currentQuestion.question_no}`;
             document.getElementById('question-text').textContent = currentQuestion.question;
-            document.getElementById('question-kr').textContent = currentQuestion.question_kr;
+            document.getElementById('question-kr').textContent = currentQuestionKr.question_kr;
             
             // 선택지 컨테이너 초기화
             const choicesContainer = document.getElementById('choices-container');
@@ -318,19 +381,20 @@
                     <div class="choice-label">${key}</div>
                     <div class="choice-content">
                         <div class="choice-text">${currentQuestion.choices[key]}</div>
-                        <div class="choice-kr">${currentQuestion.choices_kr[key]}</div>
+                        <div class="choice-kr">${currentQuestionKr.choices_kr?.[key] || "[한글 번역 없음]"}</div>
                     </div>
                 `;
                 
                 choiceItem.addEventListener('click', function() {
                     if (!isAnswered) {
-                        // 선택한 항목 하이라이트
-                        document.querySelectorAll('.choice-item').forEach(item => {
-                            item.classList.remove('selected');
-                        });
-                        
-                        this.classList.add('selected');
-                        selectedChoice = key;
+                        // 다중 선택을 위한 처리
+                        if (selectedChoices.has(key)) {
+                            selectedChoices.delete(key);
+                            this.classList.remove('selected');
+                        } else {
+                            selectedChoices.add(key);
+                            this.classList.add('selected');
+                        }
                     }
                 });
                 
@@ -342,9 +406,14 @@
             feedback.style.display = 'none';
             feedback.classList.remove('correct', 'incorrect');
             
+            // 정답 표시 초기화
+            const answerDisplay = document.getElementById('answer-display');
+            answerDisplay.style.display = 'none';
+            answerDisplay.classList.remove('correct', 'incorrect');
+            
             // 상태 초기화
             isAnswered = false;
-            selectedChoice = null;
+            selectedChoices.clear();
             
             // 진행 상태 업데이트
             updateProgress();
@@ -352,7 +421,7 @@
         
         // 정답 확인
         function checkAnswer() {
-            if (!selectedChoice) {
+            if (selectedChoices.size === 0) {
                 alert('답변을 선택해주세요.');
                 return;
             }
@@ -365,26 +434,52 @@
             answeredQuestions.add(currentQuestion.question_no);
             
             const feedback = document.getElementById('feedback');
-            const correctChoice = currentQuestion.answer;
+            const answerDisplay = document.getElementById('answer-display');
             
-            // 선택한 항목 찾기
-            const selectedItem = document.querySelector(`.choice-item[data-choice="${selectedChoice}"]`);
-            const correctItem = document.querySelector(`.choice-item[data-choice="${correctChoice}"]`);
+            // 정답 처리 (단일 정답 또는 복수 정답)
+            let correctAnswers = Array.isArray(currentQuestion.answer) 
+                ? currentQuestion.answer 
+                : [currentQuestion.answer];
             
-            if (selectedChoice === correctChoice) {
-                // 정답
+            // 선택한 항목과 정답 비교
+            const isCorrect = correctAnswers.length === selectedChoices.size && 
+                              correctAnswers.every(answer => selectedChoices.has(answer));
+            
+            // 선택한 항목들과 정답 항목들 표시
+            selectedChoices.forEach(choice => {
+                const item = document.querySelector(`.choice-item[data-choice="${choice}"]`);
+                if (correctAnswers.includes(choice)) {
+                    item.classList.add('correct');
+                } else {
+                    item.classList.add('incorrect');
+                }
+            });
+            
+            // 선택하지 않은 정답 표시
+            correctAnswers.forEach(answer => {
+                if (!selectedChoices.has(answer)) {
+                    const item = document.querySelector(`.choice-item[data-choice="${answer}"]`);
+                    if (item) {
+                        item.classList.add('correct');
+                    }
+                }
+            });
+            
+            // 정답 정보 표시
+            if (isCorrect) {
                 feedback.textContent = '정답입니다! 👍';
                 feedback.classList.add('correct');
-                selectedItem.classList.add('correct');
+                answerDisplay.textContent = `정답: ${correctAnswers.join(', ')}`;
+                answerDisplay.classList.add('correct');
             } else {
-                // 오답
-                feedback.textContent = `오답입니다. 정답은 ${correctChoice}입니다.`;
+                feedback.textContent = `오답입니다.`;
                 feedback.classList.add('incorrect');
-                selectedItem.classList.add('incorrect');
-                correctItem.classList.add('correct');
+                answerDisplay.textContent = `정답: ${correctAnswers.join(', ')}`;
+                answerDisplay.classList.add('incorrect');
             }
             
             feedback.style.display = 'block';
+            answerDisplay.style.display = 'block';
             
             // 진행 상태 업데이트
             updateProgress();
@@ -396,7 +491,7 @@
             const progressBar = document.getElementById('progress-bar');
             
             const completed = answeredQuestions.size;
-            const total = questions.length;
+            const total = questionsEn.length;
             const percentage = (completed / total) * 100;
             
             progressText.textContent = `${completed}/${total} 문제 완료`;
