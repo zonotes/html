@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시험문제 풀이 TEST</title>
+    <style>
+        :root {
+            --primary-color: #4a6eb5;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f5f5f5;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .question-kr {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .choices-container {
+            margin-bottom: 20px;
+        }
+        
+        .choice-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .choice-item:hover {
+            background-color: #f8f8f8;
+        }
+        
+        .choice-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+        
+        .choice-item.correct {
+            background-color: rgba(40, 167, 69, 0.2);
+            border-color: var(--success-color);
+        }
+        
+        .choice-item.incorrect {
+            background-color: rgba(220, 53, 69, 0.2);
+            border-color: var(--danger-color);
+        }
+        
+        .choice-label {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 30px;
+        }
+        
+        .choice-text {
+            flex-grow: 1;
+        }
+        
+        .choice-kr {
+            color: var(--secondary-color);
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .check-button {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .check-button:hover {
+            background-color: #3a5ca0;
+        }
+        
+        .next-button {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .next-button:hover {
+            background-color: #5a6268;
+        }
+        
+        .feedback {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success-color);
+        }
+        
+        .feedback.incorrect {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger-color);
+        }
+        
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: right;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .question-text, .question-kr {
+                font-size: 1rem;
+            }
+            
+            .choice-item {
+                padding: 8px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>시험문제 풀이 TEST</h1>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">0/0 문제 완료</div>
+        </div>
+        
+        <div class="question-container">
+            <div class="question-number" id="question-number"></div>
+            <div class="question-text" id="question-text"></div>
+            <div class="question-kr" id="question-kr"></div>
+        </div>
+        
+        <div class="choices-container" id="choices-container"></div>
+        
+        <div class="feedback" id="feedback"></div>
+        
+        <div class="button-container">
+            <button class="check-button" id="check-button">정답 확인</button>
+            <button class="next-button" id="next-button">다음 문제</button>
+        </div>
+    </div>
+
+    <script>
+        // 전역 변수
+        let questions = [];
+        let currentQuestion = null;
+        let selectedChoice = null;
+        let answeredQuestions = new Set();
+        let isAnswered = false;
+        
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // JSON 파일 로드
+                const response = await fetch('q.json');
+                questions = await response.json();
+                
+                // 페이지 초기화
+                initQuiz();
+            } catch (error) {
+                console.error('데이터를 로드하는 중 오류가 발생했습니다:', error);
+                alert('문제 데이터를 로드할 수 없습니다. 페이지를 새로고침하거나 나중에 다시 시도해주세요.');
+            }
+        });
+
+        // 퀴즈 초기화
+        function initQuiz() {
+            // 첫 문제 표시
+            showNextQuestion();
+            
+            // 버튼 이벤트 리스너 등록
+            document.getElementById('check-button').addEventListener('click', checkAnswer);
+            document.getElementById('next-button').addEventListener('click', showNextQuestion);
+        }
+        
+        // 다음 문제 표시
+        function showNextQuestion() {
+            // 이미 답변한 모든 문제를 풀었다면 처음부터 다시 시작
+            if (answeredQuestions.size === questions.length) {
+                alert('모든 문제를 풀었습니다! 처음부터 다시 시작합니다.');
+                answeredQuestions.clear();
+            }
+            
+            // 아직 답변하지 않은 랜덤 문제 선택
+            let availableQuestions = questions.filter(q => !answeredQuestions.has(q.question_no));
+            currentQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            
+            // 문제 정보 표시
+            document.getElementById('question-number').textContent = `문제 ${currentQuestion.question_no}`;
+            document.getElementById('question-text').textContent = currentQuestion.question;
+            document.getElementById('question-kr').textContent = currentQuestion.question_kr;
+            
+            // 선택지 컨테이너 초기화
+            const choicesContainer = document.getElementById('choices-container');
+            choicesContainer.innerHTML = '';
+            
+            // 선택지 순서 섞기
+            const choiceKeys = Object.keys(currentQuestion.choices);
+            const shuffledChoiceKeys = [...choiceKeys].sort(() => Math.random() - 0.5);
+            
+            // 선택지 추가
+            shuffledChoiceKeys.forEach(key => {
+                const choiceItem = document.createElement('div');
+                choiceItem.className = 'choice-item';
+                choiceItem.dataset.choice = key;
+                
+                choiceItem.innerHTML = `
+                    <div class="choice-label">${key}</div>
+                    <div class="choice-content">
+                        <div class="choice-text">${currentQuestion.choices[key]}</div>
+                        <div class="choice-kr">${currentQuestion.choices_kr[key]}</div>
+                    </div>
+                `;
+                
+                choiceItem.addEventListener('click', function() {
+                    if (!isAnswered) {
+                        // 선택한 항목 하이라이트
+                        document.querySelectorAll('.choice-item').forEach(item => {
+                            item.classList.remove('selected');
+                        });
+                        
+                        this.classList.add('selected');
+                        selectedChoice = key;
+                    }
+                });
+                
+                choicesContainer.appendChild(choiceItem);
+            });
+            
+            // 피드백 초기화
+            const feedback = document.getElementById('feedback');
+            feedback.style.display = 'none';
+            feedback.classList.remove('correct', 'incorrect');
+            
+            // 상태 초기화
+            isAnswered = false;
+            selectedChoice = null;
+            
+            // 진행 상태 업데이트
+            updateProgress();
+        }
+        
+        // 정답 확인
+        function checkAnswer() {
+            if (!selectedChoice) {
+                alert('답변을 선택해주세요.');
+                return;
+            }
+            
+            if (isAnswered) {
+                return;
+            }
+            
+            isAnswered = true;
+            answeredQuestions.add(currentQuestion.question_no);
+            
+            const feedback = document.getElementById('feedback');
+            const correctChoice = currentQuestion.answer;
+            
+            // 선택한 항목 찾기
+            const selectedItem = document.querySelector(`.choice-item[data-choice="${selectedChoice}"]`);
+            const correctItem = document.querySelector(`.choice-item[data-choice="${correctChoice}"]`);
+            
+            if (selectedChoice === correctChoice) {
+                // 정답
+                feedback.textContent = '정답입니다! 👍';
+                feedback.classList.add('correct');
+                selectedItem.classList.add('correct');
+            } else {
+                // 오답
+                feedback.textContent = `오답입니다. 정답은 ${correctChoice}입니다.`;
+                feedback.classList.add('incorrect');
+                selectedItem.classList.add('incorrect');
+                correctItem.classList.add('correct');
+            }
+            
+            feedback.style.display = 'block';
+            
+            // 진행 상태 업데이트
+            updateProgress();
+        }
+        
+        // 진행 상태 업데이트
+        function updateProgress() {
+            const progressText = document.getElementById('progress-text');
+            const progressBar = document.getElementById('progress-bar');
+            
+            const completed = answeredQuestions.size;
+            const total = questions.length;
+            const percentage = (completed / total) * 100;
+            
+            progressText.textContent = `${completed}/${total} 문제 완료`;
+            progressBar.style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
