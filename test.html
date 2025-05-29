@@ -185,12 +185,13 @@
         
         .answer-display {
             font-weight: bold;
-            margin-right: 15px;
             padding: 8px 12px;
             background-color: #f8f9fa;
             border-radius: 5px;
             border: 1px solid #ddd;
             display: none;
+            text-align: center;
+            margin: 20px 0;
         }
         
         .answer-display.correct {
@@ -357,10 +358,11 @@
         <div class="feedback" id="feedback"></div>
         
         <div class="button-container">
-            <div class="answer-display" id="answer-display"></div>
             <button class="check-button" id="check-button">정답 확인</button>
             <button class="next-button" id="next-button">다음 문제</button>
         </div>
+        
+        <div class="answer-display" id="answer-display"></div>
         
         <div class="translation-container" id="translation-container">
             <div class="translation-title">한글 번역</div>
@@ -392,10 +394,6 @@
             end: 999  // 매우 큰 값으로 설정하여 기본적으로 모든 문제 표시
         };
         
-        // 버튼 요소 미리 가져오기
-        let checkButton;
-        let nextButton;
-        
         // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', async function() {
             try {
@@ -417,10 +415,6 @@
                 
                 questionsEn = responseEn;
                 questionsKr = responseKr;
-                
-                // 버튼 요소 초기화
-                checkButton = document.getElementById('check-button');
-                nextButton = document.getElementById('next-button');
                 
                 // 페이지 초기화
                 initQuiz();
@@ -538,9 +532,8 @@
             showNextQuestion();
             
             // 버튼 이벤트 리스너 등록
-            checkButton.addEventListener('click', checkAnswer); 
-            nextButton.addEventListener('click', showNextQuestion);
-            nextButton.style.display = 'inline-block'; // 또는 'block' 등, 원래 스타일에 맞게
+            document.getElementById('check-button').addEventListener('click', checkAnswer);
+            document.getElementById('next-button').addEventListener('click', showNextQuestion);
             
             // 디버그 모드 설정
             if (debugMode) {
@@ -554,6 +547,12 @@
             if (debugMode) {
                 document.getElementById('debug-info').innerHTML = '';
             }
+            
+            // 정답확인 버튼을 원래 상태로 복원
+            const checkButton = document.getElementById('check-button');
+            checkButton.textContent = '정답 확인';
+            checkButton.removeEventListener('click', showNextQuestion);
+            checkButton.addEventListener('click', checkAnswer);
             
             // 현재 범위에 맞는 문제만 필터링
             const filteredQuestions = questionsEn.filter(q => 
@@ -687,27 +686,17 @@
             
             // 피드백 초기화
             const feedback = document.getElementById('feedback');
-            feedback.style.display = 'none'; // 피드백 영역은 계속 숨김
+            feedback.style.display = 'none';
             feedback.classList.remove('correct', 'incorrect');
             
             // 정답 표시 초기화
             const answerDisplay = document.getElementById('answer-display');
-            answerDisplay.style.display = 'none'; // 새 문제에서는 정답 표시 숨김
+            answerDisplay.style.display = 'none';
             answerDisplay.classList.remove('correct', 'incorrect');
             
             // 상태 초기화
             isAnswered = false;
             selectedChoices.clear();
-            
-            // "정답 확인" 버튼 상태 유지 (텍스트 변경 및 리스너 재할당 로직 제거)
-            // checkButton.textContent = '정답 확인';
-            // const newCheckButton = checkButton.cloneNode(true);
-            // checkButton.parentNode.replaceChild(newCheckButton, checkButton);
-            // checkButton = newCheckButton; 
-            // checkButton.addEventListener('click', checkAnswer);
-            
-            // "다음 문제" 버튼 항상 표시
-            nextButton.style.display = 'inline-block'; // 또는 'block' 등, 원래 스타일에 맞게
             
             // 진행 상태 업데이트
             updateProgress();
@@ -720,20 +709,16 @@
                 return;
             }
             
-            // if (isAnswered) { // 이미 "다음 문제" 버튼으로 바뀐 상태라면 showNextQuestion 실행 -> 이 로직 제거
-            //     showNextQuestion();
-            //     return;
-            // }
-            
-            if (isAnswered) { // 이미 정답을 확인한 경우 중복 실행 방지
+            if (isAnswered) {
                 return;
             }
             
             isAnswered = true;
             answeredQuestions.add(currentQuestion.question_no);
             
-            // const feedback = document.getElementById('feedback'); // 피드백 제거
+            const feedback = document.getElementById('feedback');
             const answerDisplay = document.getElementById('answer-display');
+            const checkButton = document.getElementById('check-button');
             
             // 정답 추출 및 정규화
             let originalAnswers = [];
@@ -840,15 +825,6 @@
                 }
             });
             
-            // 정답 정보 표시
-            if (isCorrect) {
-                feedback.textContent = '정답입니다! 👍';
-                feedback.classList.add('correct');
-            } else {
-                feedback.textContent = '오답입니다.';
-                feedback.classList.add('incorrect');
-            }
-            
             // 표시할 정답 형식 지정
             let answerText = '';
             if (displayAnswers.length === 1) {
@@ -860,25 +836,17 @@
             answerDisplay.textContent = answerText;
             answerDisplay.classList.add(isCorrect ? 'correct' : 'incorrect');
             
-            // feedback.style.display = 'block'; // 피드백 제거
-            answerDisplay.style.display = 'block'; // 정답 표시 영역 보이기
+            // 피드백 텍스트는 표시하지 않음 (제거됨)
+            feedback.style.display = 'none';
+            answerDisplay.style.display = 'block';
             
-            // "정답 확인" 버튼을 "다음 문제" 버튼으로 변경하는 로직 제거
-            // checkButton.textContent = '다음 문제';
-            // const newCheckButton = checkButton.cloneNode(true);
-            // checkButton.parentNode.replaceChild(newCheckButton, checkButton);
-            // checkButton = newCheckButton; 
-            // checkButton.addEventListener('click', showNextQuestion);
-            
-            // nextButton.style.display = 'none'; // "다음 문제" 버튼 숨김 -> 항상 보이도록 변경
-            nextButton.style.display = 'inline-block'; // 또는 'block' 등
+            // 정답확인 버튼을 다음문제 버튼으로 변경
+            checkButton.textContent = '다음 문제';
+            checkButton.removeEventListener('click', checkAnswer);
+            checkButton.addEventListener('click', showNextQuestion);
             
             // 진행 상태 업데이트
             updateProgress();
-
-            // 정답 확인 후, "다음 문제" 버튼에 포커스 이동 (선택 사항) -> checkButton 포커스 로직 제거
-            // checkButton.focus();
-            nextButton.focus(); // 다음 문제 버튼에 포커스
         }
         
         // 진행 상태 업데이트
