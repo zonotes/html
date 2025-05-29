@@ -392,6 +392,10 @@
             end: 999  // 매우 큰 값으로 설정하여 기본적으로 모든 문제 표시
         };
         
+        // 버튼 요소 미리 가져오기
+        let checkButton;
+        let nextButton;
+        
         // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', async function() {
             try {
@@ -413,6 +417,10 @@
                 
                 questionsEn = responseEn;
                 questionsKr = responseKr;
+                
+                // 버튼 요소 초기화
+                checkButton = document.getElementById('check-button');
+                nextButton = document.getElementById('next-button');
                 
                 // 페이지 초기화
                 initQuiz();
@@ -529,9 +537,10 @@
             // 첫 문제 표시
             showNextQuestion();
             
-            // 버튼 이벤트 리스너 등록
-            document.getElementById('check-button').addEventListener('click', checkAnswer);
-            document.getElementById('next-button').addEventListener('click', showNextQuestion);
+            // 버튼 이벤트 리스너 등록 (checkButton은 showNextQuestion에서 동적으로 관리)
+            // document.getElementById('check-button').addEventListener('click', checkAnswer); 
+            // document.getElementById('next-button').addEventListener('click', showNextQuestion);
+            nextButton.style.display = 'none'; // 초기에는 다음 문제 버튼 숨김
             
             // 디버그 모드 설정
             if (debugMode) {
@@ -678,7 +687,7 @@
             
             // 피드백 초기화
             const feedback = document.getElementById('feedback');
-            feedback.style.display = 'none';
+            feedback.style.display = 'none'; // 피드백 영역은 계속 숨김
             feedback.classList.remove('correct', 'incorrect');
             
             // 정답 표시 초기화
@@ -689,6 +698,17 @@
             // 상태 초기화
             isAnswered = false;
             selectedChoices.clear();
+            
+            // "정답 확인" 버튼으로 상태 복원
+            checkButton.textContent = '정답 확인';
+            // 기존 이벤트 리스너 제거 (중복 방지)
+            const newCheckButton = checkButton.cloneNode(true);
+            checkButton.parentNode.replaceChild(newCheckButton, checkButton);
+            checkButton = newCheckButton; // 새 버튼을 참조하도록 업데이트
+            checkButton.addEventListener('click', checkAnswer);
+            
+            // "다음 문제" 버튼은 계속 숨김
+            nextButton.style.display = 'none';
             
             // 진행 상태 업데이트
             updateProgress();
@@ -701,14 +721,14 @@
                 return;
             }
             
-            if (isAnswered) {
+            if (isAnswered) { // 이미 "다음 문제" 버튼으로 바뀐 상태라면 showNextQuestion 실행
+                showNextQuestion();
                 return;
             }
             
             isAnswered = true;
             answeredQuestions.add(currentQuestion.question_no);
             
-            const feedback = document.getElementById('feedback');
             const answerDisplay = document.getElementById('answer-display');
             
             // 정답 추출 및 정규화
@@ -836,8 +856,15 @@
             answerDisplay.textContent = answerText;
             answerDisplay.classList.add(isCorrect ? 'correct' : 'incorrect');
             
-            feedback.style.display = 'block';
-            answerDisplay.style.display = 'block';
+            // "정답 확인" 버튼을 "다음 문제" 버튼으로 변경
+            checkButton.textContent = '다음 문제';
+            // 기존 이벤트 리스너 제거
+            const newCheckButton = checkButton.cloneNode(true);
+            checkButton.parentNode.replaceChild(newCheckButton, checkButton);
+            checkButton = newCheckButton; // 새 버튼을 참조하도록 업데이트
+            checkButton.addEventListener('click', showNextQuestion);
+            
+            nextButton.style.display = 'none'; // "다음 문제" 버튼 숨김
             
             // 진행 상태 업데이트
             updateProgress();
@@ -864,6 +891,9 @@
             
             progressText.textContent = `${completedInRange}/${totalInRange} 문제 완료`;
             progressBar.style.width = `${percentage}%`;
+
+            // 정답 확인 후, "다음 문제" 버튼에 포커스 이동 (선택 사항)
+            checkButton.focus();
         }
     </script>
 </body>

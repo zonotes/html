@@ -93,14 +93,14 @@
     "choices": {
       "A.": "Create a streaming insight with a data action.",
       "B.": "Use formula fields when ingesting at the data stream level.",
-      "C.": "Create one batch data transform per data stream.IT Certification Guaranteed, The Easy Way!",
+      "C.": "Create one batch data transform per data stream.",
       "D.": "Create one batch data transform that creates a new DLO."
     },
     "answer": "D"
   },
   {
     "question_no": 10,
-    "question": "Cumulus Financial is currently using Data Cloud and ingesting transactional data from itsIT Certification Guaranteed, The Easy Way!backend system via an S3 Connector in upsert mode. During the initial setup six months ago,the company created a formula field in Data Cloud to create a custom classification. It nowneeds to update this formula to account for more classifications.What should the consultant keep in mind with regard to formula field updates when using theS3 Connector?",
+    "question": "Cumulus Financial is currently using Data Cloud and ingesting transactional data from itsbackend system via an S3 Connector in upsert mode. During the initial setup six months ago,the company created a formula field in Data Cloud to create a custom classification. It nowneeds to update this formula to account for more classifications.What should the consultant keep in mind with regard to formula field updates when using theS3 Connector?",
     "choices": {
       "A.": "Data Cloud will initiate a full refresh of data from $3 and will update the formula on allrecords.",
       "B.": "Data Cloud will only update the formula on a go-forward basis for new records.",
@@ -122,7 +122,7 @@
   },
   {
     "question_no": 12,
-    "question": "A customer has a requirement to receive a notification whenever an activation fails for aIT Certification Guaranteed, The Easy Way!particular segment.Which feature should the consultant use to solution for this use case?",
+    "question": "A customer has a requirement to receive a notification whenever an activation fails for aparticular segment.Which feature should the consultant use to solution for this use case?",
     "choices": {
       "A.": "Flow",
       "B.": "Report",
@@ -181,7 +181,7 @@
     "choices": {
       "A.": "Individuals who purchased at least one of any red' product and also purchased at leastone pair of 'shoes'",
       "B.": "Individuals who purchased at least one 'red shoes' as a single line item in a purchase",
-      "C.": "Individuals who made a purchase of at least one 'red shoes' and nothing elseIT Certification Guaranteed, The Easy Way!",
+      "C.": "Individuals who made a purchase of at least one 'red shoes' and nothing else",
       "D.": "Individuals who purchased at least one of any 'red' product or purchased at least one pairof 'shoes'"
     },
     "answer": "A"
@@ -223,7 +223,7 @@
     "question_no": 21,
     "question": "A retail customer wants to bring customer data from different sourcesand wants to take advantage of identity resolution so that it can beused in segmentation.On which entity should this be segmented for activation membership?",
     "choices": {
-      "A.": "SubscriberIT Certification Guaranteed, The Easy Way!",
+      "A.": "Subscriber",
       "B.": "Unified Individual",
       "C.": "Unified Contact",
       "D.": "Individual"
@@ -256,7 +256,7 @@
     "question_no": 24,
     "question": "A user has built a segment in Data Cloud and is in the process of creating an activation.When selecting related attributes, they cannot find a specific set of attributes they know to berelated to the individual.Which statement explains why these attributes are not available?",
     "choices": {
-      "A.": "The segment is not segmenting on profile data.IT Certification Guaranteed, The Easy Way!",
+      "A.": "The segment is not segmenting on profile data.",
       "B.": "The attributes are being used in another activation.",
       "C.": "The desired attributes reside on different related paths.",
       "D.": "Activations can only include 1-to-1 attributes."
@@ -314,7 +314,7 @@
       "A.": "Profile Explorer",
       "B.": "Calculated insight",
       "C.": "Dashboard",
-      "D.": "ReportIT Certification Guaranteed, The Easy Way!"
+      "D.": "Report"
     },
     "answer": "C,D"
   },
@@ -335,7 +335,7 @@
     "choices": {
       "A.": "Use streaming insights for near real-time segmentation results.",
       "B.": "Use Einstein segmentation optimization to collect data from the last 24 hours.",
-      "C.": "Use rapid segments with a publish interval of 1 hour.IT Certification Guaranteed, The Easy Way!",
+      "C.": "Use rapid segments with a publish interval of 1 hour.",
       "D.": "Use standard segment with a publish interval of 30 minutes."
     },
     "answer": "A"
@@ -444,7 +444,7 @@
     "question": "Northern Trail Outfitters uses B2C Commerce and is exploring implementing Data Cloud toget a unified view of its customers and all their order transactions.What should the consultant keep in mind with regard to historical data ingesting order datausing the B2C Commerce Order Bundle?",
     "choices": {
       "A.": "The B2C Commerce Order Bundle ingests 12 months of historical data.",
-      "B.": "The B2C Commerce Order Bundle ingests 6 months of historical data.IT Certification Guaranteed, The Easy Way!",
+      "B.": "The B2C Commerce Order Bundle ingests 6 months of historical data.",
       "C.": "The B2C Commerce Order Bundle does not ingest any historical data and only ingestsnew orders from that point on.",
       "D.": "The B2C Commerce Order Bundle ingests 30 days of historical data."
     },
@@ -523,7 +523,7 @@
       "A.": "Use a streaming API call to delete the customer's information.",
       "B.": "Use Profile Explorer to delete the customer data from Data Cloud.",
       "C.": "Use Consent API to request deletion of the customer's information.",
-      "D.": "Use the Data Rights Subject Request tool to request deletion of the customer'sIT Certification Guaranteed, The Easy Way!information."
+      "D.": "Use the Data Rights Subject Request tool to request deletion of the customer'sinformation."
     },
     "answer": "D"
   },
@@ -595,7 +595,7 @@
   },
   {
     "question_no": 55,
-    "question": "An analyst from Cloud Kicks needs to get quick Insights to determine the average sales perday during the past week.What should a consultant recommend?IT Certification Guaranteed, The Easy Way!",
+    "question": "An analyst from Cloud Kicks needs to get quick Insights to determine the average sales perday during the past week.What should a consultant recommend?",
     "choices": {
       "A.": "salesforce flows",
       "B.": "Lightning web component utilizing Query API",
@@ -610,14 +610,14 @@
     "choices": {
       "A.": "Use a data action to update the data graph with the DLO data",
       "B.": "Map the DLOS to DMOS and use these in the data graph.",
-      "C.": "Map the DLOs directly to a data graph.IT Certification Guaranteed, The Easy Way!",
+      "C.": "Map the DLOs directly to a data graph.",
       "D.": "Batch transform the DLOs to multiple DMOs and activate these with the data graph."
     },
     "answer": "B"
   },
   {
     "question_no": 57,
-    "question": "IT Certification Guaranteed, The Easy Way!A consultant is troubleshooting a segment error.Which error message is solved by using calculated insights Instead of nested segments?",
+    "question": "A consultant is troubleshooting a segment error.Which error message is solved by using calculated insights Instead of nested segments?",
     "choices": {
       "A.": "Segment can't be published.",
       "B.": "Segment population count failed.",
@@ -672,7 +672,7 @@
   },
   {
     "question_no": 62,
-    "question": "Cumulus Financial wants to be able to track the daily transaction volume of each of itscustomers in real time and send out a notification as soon as it detects volume outside acustomer's normal range.IT Certification Guaranteed, The Easy Way!What should a consultant do to accommodate this request?",
+    "question": "Cumulus Financial wants to be able to track the daily transaction volume of each of itscustomers in real time and send out a notification as soon as it detects volume outside acustomer's normal range.What should a consultant do to accommodate this request?",
     "choices": {
       "A.": "Use a calculated insight paired with a flow.",
       "B.": "Use streaming data transform with a flow.",
@@ -732,7 +732,7 @@
       "A.": "Includes data from sources where the data is most frequently occurring",
       "B.": "Identifies which individual records should be merged into a unified profile by setting apriority for specific data sources",
       "C.": "Identifies which data sources should be used in the process of reconcillation by prioritizingthe most recently updated data source",
-      "D.": "Sets the priority of specific data sources when building attributes in a unified profile, suchIT Certification Guaranteed, The Easy Way!as a first or last name"
+      "D.": "Sets the priority of specific data sources when building attributes in a unified profile, suchas a first or last name"
     },
     "answer": "D"
   },
@@ -804,7 +804,7 @@
   },
   {
     "question_no": 74,
-    "question": "Which two requirements must be met for a calculated insight to appear in the segmentationcanvas?IT Certification Guaranteed, The Easy Way! Choose 2 answers",
+    "question": "Which two requirements must be met for a calculated insight to appear in the segmentationcanvas? Choose 2 answers",
     "choices": {
       "A.": "The metrics of the calculated insights must only contain numeric values.",
       "B.": "The primary key of the segmented table must be a metric in the calculated insight.",
@@ -903,7 +903,7 @@
   },
   {
     "question_no": 83,
-    "question": "Cumulus Financial segregates its sales CRM data based on Region for its Data Cloud users.IT Certification Guaranteed, The Easy Way!Multiple data spaces are configured: a default space and two additional spaces tailored forEMEA and APAC regions.EME A sales reps who need temporary access to visualize data for both regions say thatthey cannot visualize APAC dat a. APAC sales reps can visualize the correspondingsegmented data.Which statement describes the cause of this issue?",
+    "question": "Cumulus Financial segregates its sales CRM data based on Region for its Data Cloud users.Multiple data spaces are configured: a default space and two additional spaces tailored forEMEA and APAC regions.EME A sales reps who need temporary access to visualize data for both regions say thatthey cannot visualize APAC dat a. APAC sales reps can visualize the correspondingsegmented data.Which statement describes the cause of this issue?",
     "choices": {
       "A.": "The EMEA sales reps have not been assigned to the profile associated with the APACdata space.",
       "B.": "The APAC data space is not associated with any permission set.",
@@ -947,7 +947,7 @@
   },
   {
     "question_no": 87,
-    "question": "When performing segmentation or activation, which time zone is used to publish and refreshdata?IT Certification Guaranteed, The Easy Way!",
+    "question": "When performing segmentation or activation, which time zone is used to publish and refreshdata?",
     "choices": {
       "A.": "Time zone specified on the activity at the time of creation",
       "B.": "Time zone of the user creating the activity",
@@ -1092,7 +1092,7 @@
     "question_no": 100,
     "question": "Northern Trail Outfitters (NTO), an outdoor lifestyle clothing brand, recently started a new lineof business. The new business specializes in gourmet camping food. For business reasonsas well as security reasons, it's important to NTO to keep all Data Cloud data separated bybrand.Which capability best supports NTO's desire to separate its data by brand?",
     "choices": {
-      "A.": "Data streams for each brandIT Certification Guaranteed, The Easy Way!",
+      "A.": "Data streams for each brand",
       "B.": "Data model objects for each brand",
       "C.": "Data spaces for each brand",
       "D.": "Data sources for each brand"
@@ -1134,7 +1134,7 @@
   },
   {
     "question_no": 104,
-    "question": "IT Certification Guaranteed, The Easy Way!Northern Trail Outfitters wants to use some of its Marketing Cloud data in Data Cloud.Which engagement channel data will require custom integration?",
+    "question": "Northern Trail Outfitters wants to use some of its Marketing Cloud data in Data Cloud.Which engagement channel data will require custom integration?",
     "choices": {
       "A.": "SMS",
       "B.": "Email",
@@ -1189,7 +1189,7 @@
   },
   {
     "question_no": 109,
-    "question": "IT Certification Guaranteed, The Easy Way!Cumulus Financial uses Data Cloud to segment banking customers and activate them fordirect mail via a Cloud File Storage activation. The company also wants to analyzeindividuals who have been in the segment within the last 2 years.Which Data Cloud component allows for this?",
+    "question": "Cumulus Financial uses Data Cloud to segment banking customers and activate them fordirect mail via a Cloud File Storage activation. The company also wants to analyzeindividuals who have been in the segment within the last 2 years.Which Data Cloud component allows for this?",
     "choices": {
       "A.": "Segment exclusion",
       "B.": "Nested segments",
@@ -1244,7 +1244,7 @@
   },
   {
     "question_no": 114,
-    "question": "IT Certification Guaranteed, The Easy Way!Cumulus Financial uses calculated insights to compute the total banking value per branch forits high net worth customers. In the calculated insight, \"banking value\" is a metric, \"branch\" isa dimension, and \"high net worth\" is a filter.What can be included as an attribute in activation?",
+    "question": "Cumulus Financial uses calculated insights to compute the total banking value per branch forits high net worth customers. In the calculated insight, \"banking value\" is a metric, \"branch\" isa dimension, and \"high net worth\" is a filter.What can be included as an attribute in activation?",
     "choices": {
       "A.": "\"high net worth\" (filter)",
       "B.": "\"branch\" (dimension) and \"banking metric)",
@@ -1354,7 +1354,7 @@
   },
   {
     "question_no": 124,
-    "question": "A customer has two Data Cloud orgs. A new configuration has been completed and tested foran Amazon S3 data stream and its mappings in one of the Data Cloud orgs.What is recommended to package and promote this configuration to the customer's secondorg?IT Certification Guaranteed, The Easy Way!",
+    "question": "A customer has two Data Cloud orgs. A new configuration has been completed and tested foran Amazon S3 data stream and its mappings in one of the Data Cloud orgs.What is recommended to package and promote this configuration to the customer's secondorg?",
     "choices": {
       "A.": "Use the Metadata API.",
       "B.": "Use the Salesforce CRM connector.",
@@ -1453,7 +1453,7 @@
   },
   {
     "question_no": 133,
-    "question": "Northern Trail Outfitters uploads new customer data to an Amazon S3 Bucket on a dailybasis to be ingested in Data Cloud. Based on this, a calculated insight is created that showsthe total spend per customer in the last 30 days.IT Certification Guaranteed, The Easy Way!In which sequence should each process be run to ensure that freshly imported data is readyand available to use for any segment?",
+    "question": "Northern Trail Outfitters uploads new customer data to an Amazon S3 Bucket on a dailybasis to be ingested in Data Cloud. Based on this, a calculated insight is created that showsthe total spend per customer in the last 30 days.In which sequence should each process be run to ensure that freshly imported data is readyand available to use for any segment?",
     "choices": {
       "A.": "Refresh Data Stream > Identity Resolution > Calculated Insight",
       "B.": "Refresh Data Stream > Calculated Insight > Identity Resolution",
@@ -1464,7 +1464,7 @@
   },
   {
     "question_no": 134,
-    "question": "Luxury Retailers created a segment targeting high value customers that it activates throughMarketing Cloud for email communication. The company notices that the activated count isIT Certification Guaranteed, The Easy Way!smaller than the segment count.What is a reason for this?",
+    "question": "Luxury Retailers created a segment targeting high value customers that it activates throughMarketing Cloud for email communication. The company notices that the activated count issmaller than the segment count.What is a reason for this?",
     "choices": {
       "A.": "Marketing Cloud activations apply a frequency cap and limit the number of records thatcan be sent in an activation.",
       "B.": "Data Cloud enforces the presence of Contact Point for Marketing Cloud activations. If theindividual does not have a related Contact Point, it will not be activated.",
@@ -1524,7 +1524,7 @@
       "A.": "New dimensions can be added.",
       "B.": "Existing dimensions can be removed.",
       "C.": "Existing measures can be removed.",
-      "D.": "New measures can be added.IT Certification Guaranteed, The Easy Way!"
+      "D.": "New measures can be added."
     },
     "answer": "B"
   },
@@ -1675,7 +1675,7 @@
     "question_no": 153,
     "question": "A client wants to bring in loyalty data from a custom object in Salesforce CRM that contains apoint balance for accrued hotel points and airline points within the same record. The clientwants to split these point systems into two separate records for better tracking andprocessing.What should a consultant recommend in this scenario?",
     "choices": {
-      "A.": "Clone the data source object.IT Certification Guaranteed, The Easy Way!",
+      "A.": "Clone the data source object.",
       "B.": "Use batch transforms to create a second data lake object.",
       "C.": "Create a junction object in Salesforce CRM and modify the ingestion strategy.",
       "D.": "Create a data kit from the data lake object and deploy it to the same Data Cloud org."
@@ -1695,7 +1695,7 @@
   },
   {
     "question_no": 155,
-    "question": "A customer has multiple team members who create segment audiences that work in differenttime zones. One team member works at the home office in the Pacific time zone, thatmatches the org Time Zone setting. Another team member works remotely in the Easterntime zone.Which user will see their home time zone in the segment and activation schedule areas?IT Certification Guaranteed, The Easy Way!",
+    "question": "A customer has multiple team members who create segment audiences that work in differenttime zones. One team member works at the home office in the Pacific time zone, thatmatches the org Time Zone setting. Another team member works remotely in the Easterntime zone.Which user will see their home time zone in the segment and activation schedule areas?",
     "choices": {
       "A.": "The team member in the Pacific time zone.",
       "B.": "The team member in the Eastern time zone.",
@@ -1731,7 +1731,7 @@
     "question": "Northern Trail Outfitters asks its consultant to extract the runner profiles and activity logs fromits Track My Run mobile app and load them into Data Cloud. The marketing department alsoindicates that they need the last 90 days of historical data and want all new and updated dataas it becomes available on a go-forward basis.As best practice, which sequence of actions should the consultant use to implement thisrequest?",
     "choices": {
       "A.": "Use bulk ingestion to first load the last 90 days of data, and also subsequently use bulkingestion to synchronize the future data as It becomes available.",
-      "B.": "Use streaming ingestion to first load the last 90 days of data, and also subsequently usestreaming ingestion synchronize future data as It becomes available.IT Certification Guaranteed, The Easy Way!",
+      "B.": "Use streaming ingestion to first load the last 90 days of data, and also subsequently usestreaming ingestion synchronize future data as It becomes available.",
       "C.": "Use streaming ingestion to first load the last 90 days of data, and then use bulk Ingestionto synchronize future data as It becomes available.",
       "D.": "Use bulk ingestion to first load the last 90 days of data, and then use streaming ingestionto synchronize future data as It becomes available."
     },
@@ -1843,7 +1843,7 @@
       "A.": "The underlying data lake object is used in activation.",
       "B.": "The underlying data lake object is used in a data transform.",
       "C.": "The underlying data lake object is mapped to a data model object.",
-      "D.": "The underlying data lake object is used in segmentation.IT Certification Guaranteed, The Easy Way!"
+      "D.": "The underlying data lake object is used in segmentation."
     },
     "answer": "B,C"
   },
@@ -1863,7 +1863,7 @@
     "question": "A customer is trying to activate data from Data Cloud to an Amazon S3 Cloud File StorageBucket.Which authentication type should the consultant recommend to connect to the S3 bucketfrom Data Cloud?",
     "choices": {
       "A.": "Use an S3 Private Key Certificate.",
-      "B.": "Use an S3 Encrypted Username and Password.IT Certification Guaranteed, The Easy Way!",
+      "B.": "Use an S3 Encrypted Username and Password.",
       "C.": "Use a JWT Token generated on S3.",
       "D.": "Use an S3 Access Key and Secret Key."
     },
