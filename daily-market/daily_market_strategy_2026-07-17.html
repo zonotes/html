@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Market Strategy | 2026-07-17</title>
+  <style>
+    :root {
+      --bg:#e9edf3; --paper:#ffffff; --ink:#142033; --body:#334155; --muted:#66758a;
+      --line:#d7dde8; --line2:#eef2f7; --navy:#10233f; --navy2:#18345c; --blue:#1e5bb8;
+      --red:#b42318; --green:#137a43; --amber:#9a640d; --soft:#f6f8fb; --soft-blue:#f2f6fc;
+      --soft-red:#fff4f3; --soft-green:#f1fbf4; --soft-amber:#fff8ed;
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+    }
+    *{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+    body{word-break:keep-all;overflow-wrap:anywhere}
+    .shell{max-width:760px;margin:0 auto;background:var(--paper);min-height:100vh;box-shadow:0 18px 48px rgba(15,23,42,.08)}
+    .topbar{height:8px;background:linear-gradient(90deg,var(--navy),var(--navy2) 70%,#6d7f97)}
+    .cover{padding:18px 16px 14px;background:linear-gradient(180deg,#fff,#f9fbfd);border-bottom:1px solid var(--line)}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+    h1{margin:8px 0 6px;font-size:22px;line-height:1.25;letter-spacing:-.03em;color:var(--navy)}
+    .subtitle{margin:0;color:var(--body);font-size:14px}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .meta .item{padding:10px 11px;border:1px solid var(--line);background:#fff}
+    .meta .k{display:block;font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .meta .v{display:block;margin-top:4px;font-size:13px;color:var(--ink);font-weight:700}
+    .toolbar{display:flex;justify-content:flex-end;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fafbfd}
+    .btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:800;cursor:pointer}
+    main{padding:14px 16px 24px}
+    .summary{padding:14px;border:1px solid var(--line);background:var(--soft-blue);border-top:3px solid var(--navy);margin-bottom:14px}
+    .summary h2{margin:0 0 8px;font-size:16px;color:var(--navy)}
+    .summary p{margin:0;font-size:13.5px;color:var(--body)}
+    .toc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+    .toc a{display:block;text-decoration:none;color:var(--body);border:1px solid var(--line);background:#fff;padding:10px 11px;border-radius:10px;font-size:12.5px;font-weight:700}
+    section{margin-top:18px}
+    .section-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-end;padding-bottom:6px;border-bottom:2px solid var(--navy);margin-bottom:10px}
+    .section-head h2{margin:0;font-size:17px;line-height:1.25;color:var(--navy);letter-spacing:-.02em}
+    .section-head span{font-size:11px;color:var(--muted);font-family:var(--mono);font-weight:700}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .card{border:1px solid var(--line);background:#fff;padding:11px 11px 10px;border-radius:12px}
+    .card.soft{background:var(--soft)}
+    .label{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .value{margin-top:5px;font-size:18px;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
+    .delta{margin-top:2px;font-size:12px;font-weight:800}
+    .up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--amber)}
+    .stack{display:grid;gap:8px}
+    .note{font-size:12px;color:var(--muted);margin-top:8px}
+    .kvs{display:grid;gap:8px}
+    .kv{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line2)}
+    .kv:first-child{border-top:0;padding-top:0}
+    .kv .k{font-size:12px;font-weight:800;color:var(--navy)}
+    .kv .v{font-size:12.8px;color:var(--body)}
+    .scenario{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}
+    .scenario + .scenario{margin-top:8px}
+    .scenario .top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+    .pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:800}
+    .base{background:#e8eef8;color:#17365d} .bull{background:#e8f7ef;color:var(--green)} .bear{background:#fff0ed;color:var(--red)}
+    .pct{font-family:var(--mono);font-size:12px;font-weight:900;color:var(--navy)}
+    ul.compact{margin:8px 0 0;padding-left:18px;font-size:12.8px;color:var(--body)}
+    ul.compact li+li{margin-top:5px}
+    .alert{padding:11px 12px;border-radius:12px;border:1px solid var(--line)}
+    .alert.risk{background:var(--soft-red);border-top:3px solid var(--red)}
+    .alert.act{background:var(--soft-green);border-top:3px solid var(--green)}
+    .alert.watch{background:var(--soft-amber);border-top:3px solid var(--amber)}
+    .footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+    .footer strong{color:var(--body)}
+    .source{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:#7b8797;overflow-wrap:anywhere}
+    @media print{
+      body{background:#fff} .shell{box-shadow:none} .toolbar{display:none}
+      .card,.scenario,.alert{break-inside:avoid}
+    }
+    @media (max-width:420px){
+      .grid3{grid-template-columns:1fr 1fr}
+      .kv{grid-template-columns:84px 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar"></div>
+    <header class="cover">
+      <div class="eyebrow">Daily Market Strategy</div>
+      <h1>제헌절 휴장일, 실거래보다<br>다음 개장 리스크 점검이 우선</h1>
+      <p class="subtitle">국내 증시는 7월 17일 제헌절 일정으로 휴장이다. 따라서 오늘 전략의 핵심은 거래 실행이 아니라 전일 급락 이후 다음 개장(7월 20일) 방향성을 좌우할 반도체·미국선물·환율 변수를 정리하는 데 있다.</p>
+      <div class="meta">
+        <div class="item"><span class="k">발간일</span><span class="v">2026-07-17</span></div>
+        <div class="item"><span class="k">분석 시점</span><span class="v">2026-07-17 08:00 KST</span></div>
+        <div class="item"><span class="k">시장 상태</span><span class="v">국내 증시 휴장</span></div>
+        <div class="item"><span class="k">전술 스탠스</span><span class="v">관망 · 재개장 체크리스트 중심</span></div>
+      </div>
+    </header>
+    <div class="toolbar"><button class="btn" onclick="window.print()">PDF 저장 / 인쇄</button></div>
+    <main>
+      <div class="summary">
+        <h2>Executive Summary</h2>
+        <p>미국 전일장은 기술주와 반도체 약세가 재차 부각됐다. 나스닥 -1.47%, SOX -4.29%, VIX +6.76%로 위험선호가 둔화됐고, 미국 선물도 오전 기준 ES -0.17%, NQ -0.32%로 약세권이다. 다만 USD/KRW는 1,477.73원으로 전일 대비 -0.56% 하락해 환율 부담은 일부 완화됐다. 오늘 국내 현물 거래는 없으므로, 다음 개장 대응의 초점은 ① SOX 추가 안정 여부 ② 나스닥 선물 반등 전환 여부 ③ 삼성전자 25.25만~26.55만원, SK하이닉스 182.1만~191.9만원 구간 재확인 여부다.</p>
+      </div>
+      <div class="toc">
+        <a href="#sec1">01 시장 데이터 요약</a>
+        <a href="#sec2">02 장전 투자 판단 및 시나리오</a>
+        <a href="#sec3">03 핵심 가격대 및 체크포인트</a>
+        <a href="#sec4">04 리스크 및 매매 전략</a>
+        <a href="#sec5">05 결론</a>
+      </div>
+
+      <section id="sec1">
+        <div class="section-head"><h2>01 시장 데이터 요약</h2><span>Market Snapshot</span></div>
+        <div class="grid2">
+          <div class="card"><div class="label">KOSPI (7/16 종가)</div><div class="value">6,820.60</div><div class="delta down">-463.81 · -6.37%</div></div>
+          <div class="card"><div class="label">KOSDAQ (7/16 종가)</div><div class="value">791.84</div><div class="delta down">-37.59 · -4.53%</div></div>
+          <div class="card"><div class="label">Samsung Electronics</div><div class="value">255,000원</div><div class="delta down">-24,500원 · -8.77%</div></div>
+          <div class="card"><div class="label">SK hynix</div><div class="value">1,842,000원</div><div class="delta down">-240,000원 · -11.53%</div></div>
+        </div>
+        <div class="grid3" style="margin-top:8px">
+          <div class="card soft"><div class="label">S&P 500</div><div class="value">7,533.77</div><div class="delta down">-0.51%</div></div>
+          <div class="card soft"><div class="label">NASDAQ</div><div class="value">25,881.95</div><div class="delta down">-1.47%</div></div>
+          <div class="card soft"><div class="label">SOX</div><div class="value">11,867.50</div><div class="delta down">-4.29%</div></div>
+          <div class="card soft"><div class="label">VIX</div><div class="value">16.73</div><div class="delta up">+6.76%</div></div>
+          <div class="card soft"><div class="label">USD/KRW</div><div class="value">1,477.73</div><div class="delta flat">-0.56%</div></div>
+          <div class="card soft"><div class="label">WTI</div><div class="value">78.99</div><div class="delta up">+0.91%</div></div>
+          <div class="card soft"><div class="label">Gold</div><div class="value">3,978.90</div><div class="delta down">-0.33%</div></div>
+          <div class="card soft"><div class="label">Bitcoin</div><div class="value">63,885.65</div><div class="delta down">-1.28%</div></div>
+          <div class="card soft"><div class="label">Nasdaq 100 선물</div><div class="value">29,132.50</div><div class="delta down">-0.32%</div></div>
+          <div class="card soft"><div class="label">S&P 500 선물</div><div class="value">7,564.75</div><div class="delta down">-0.17%</div></div>
+          <div class="card soft"><div class="label">Nikkei 225</div><div class="value">66,835.54</div><div class="delta down">-2.79%</div></div>
+          <div class="card soft"><div class="label">Shanghai</div><div class="value">3,882.41</div><div class="delta down">-1.85%</div></div>
+        </div>
+        <div class="card" style="margin-top:8px">
+          <div class="label">휴장 및 뉴스 체크</div>
+          <ul class="compact">
+            <li>국내 증시는 7월 17일 제헌절 일정으로 휴장 보도 확인. (인포스탁데일리, 금강일보, CBC뉴스 Google News RSS 기준)</li>
+            <li>Reuters·WSJ·IBD 계열 헤드라인상 미국장은 반도체 약세가 지수 부담 요인으로 재차 언급됐다.</li>
+            <li>국내 헤드라인은 삼성전자·SK하이닉스의 전일 급락과 ADR/해외 반도체 약세 연동을 공통적으로 지적했다.</li>
+          </ul>
+          <div class="note">자료 시점이 서로 다르므로 전일 종가와 현재 선물·환율 값을 분리해 해석해야 한다.</div>
+        </div>
+      </section>
+
+      <section id="sec2">
+        <div class="section-head"><h2>02 장전 투자 판단 및 시나리오</h2><span>Scenario</span></div>
+        <div class="scenario">
+          <div class="top"><span class="pill base">기본</span><span class="pct">50%</span></div>
+          <div class="kvs">
+            <div class="kv"><div class="k">해석</div><div class="v">오늘은 휴장으로 실거래가 없고, 다음 개장 전까지 변동성 진정 여부를 확인하는 관망 구간이다.</div></div>
+            <div class="kv"><div class="k">근거</div><div class="v">미국 현물과 SOX가 약했지만, USD/KRW가 하락했고 미국 선물 낙폭은 전일 현물보다 제한적이다.</div></div>
+            <div class="kv"><div class="k">전략</div><div class="v">7월 20일 개장 전까지 반도체 뉴스플로우와 나스닥 선물의 -0.3%권 회복 여부를 우선 확인한다.</div></div>
+          </div>
+        </div>
+        <div class="scenario">
+          <div class="top"><span class="pill bull">상승</span><span class="pct">20%</span></div>
+          <div class="kvs">
+            <div class="kv"><div class="k">트리거</div><div class="v">SOX 급락이 일회성으로 마무리되고, NQ 선물이 플러스로 돌아서며 USD/KRW가 1,470원대 초반 안착.</div></div>
+            <div class="kv"><div class="k">의미</div><div class="v">전일 한국 반도체 급락분의 일부 되돌림이 가능해져 다음 개장 초반 기술적 반등 시도 여지.</div></div>
+          </div>
+        </div>
+        <div class="scenario">
+          <div class="top"><span class="pill bear">하락</span><span class="pct">30%</span></div>
+          <div class="kvs">
+            <div class="kv"><div class="k">트리거</div><div class="v">SOX 추가 약세, NQ 선물 낙폭 확대, USD/KRW 반등, 삼성전자·하이닉스 ADR 약세 재확대.</div></div>
+            <div class="kv"><div class="k">의미</div><div class="v">다음 개장에서도 7월 16일 저가권 재시험 가능성이 높아져 저가매수보다 방어가 우선.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec3">
+        <div class="section-head"><h2>03 오늘 핵심 가격대 및 체크포인트</h2><span>Levels & Checks</span></div>
+        <div class="stack">
+          <div class="card">
+            <div class="label">다음 개장 기준 핵심 가격대</div>
+            <div class="kvs" style="margin-top:8px">
+              <div class="kv"><div class="k">KOSPI</div><div class="v">6,730.87 ~ 6,995.93: 전일 장중 범위. 6,730선 하향 이탈 시 투매 재개, 7,000선 회복 시 기술적 반등 신뢰도 개선.</div></div>
+              <div class="kv"><div class="k">KOSDAQ</div><div class="v">780 ~ 800: 800선 회복 실패 시 개별주 변동성 재확대 가능.</div></div>
+              <div class="kv"><div class="k">삼성전자</div><div class="v">252,500 ~ 265,500원: 전일 범위. 25만원대 초반 지지 실패 시 추가 하방 경계.</div></div>
+              <div class="kv"><div class="k">SK하이닉스</div><div class="v">1,821,000 ~ 1,919,000원: 전일 범위. 182만원선 재이탈 시 반도체 심리 추가 악화 가능.</div></div>
+              <div class="kv"><div class="k">USD/KRW</div><div class="v">1,477.73 현재. 1,485원 재상향 여부가 외국인 수급 체감에 중요.</div></div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="alert watch">
+              <div class="label">장중 대신 체크할 외부 변수</div>
+              <ul class="compact">
+                <li>NQ=F가 -0.3%권에서 축소되는지</li>
+                <li>ES=F가 보합권 회복하는지</li>
+                <li>SOX 관련 추가 악재 헤드라인 유무</li>
+                <li>USD/KRW 1,470원대 유지 여부</li>
+              </ul>
+            </div>
+            <div class="alert watch">
+              <div class="label">반도체 대형주 체크포인트</div>
+              <ul class="compact">
+                <li>삼성전자 ADR/해외 뉴스의 추가 악화 여부</li>
+                <li>SK하이닉스 ADR·메모리 업황 뉴스 변화</li>
+                <li>국내 재개장 전 외국인 선호 섹터 이동</li>
+                <li>AI·반도체 공급망 뉴스플로우 방향</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec4">
+        <div class="section-head"><h2>04 리스크 및 매매 전략</h2><span>Risk & Strategy</span></div>
+        <div class="grid2">
+          <div class="alert risk">
+            <div class="label">핵심 리스크</div>
+            <ul class="compact">
+              <li>휴장 뒤 재개장이라 갭 리스크가 평소보다 클 수 있다.</li>
+              <li>전일 한국 반도체 급락 뒤 미국 SOX가 추가 하락해 심리 복원이 지연될 수 있다.</li>
+              <li>미국 선물이 약세를 지속하면 국내 반등 시도도 시가에서 제한될 가능성이 높다.</li>
+              <li>환율이 다시 1,480원대 후반으로 튀면 외국인 수급 기대가 빠르게 약화될 수 있다.</li>
+            </ul>
+          </div>
+          <div class="alert act">
+            <div class="label">실행 전략</div>
+            <ul class="compact">
+              <li><strong>오늘:</strong> 휴장일이므로 신규 진입·추격 매수 판단보다 체크리스트 업데이트가 우선.</li>
+              <li><strong>다음 개장 시초가:</strong> 갭하락 출발이면 첫 10~20분 변동성 확인 전 성급한 저가매수 자제.</li>
+              <li><strong>분할 매수:</strong> 삼성전자 25만원대 초반, SK하이닉스 182만원선 지지 확인 후 30%·30%·40% 분할 접근이 보수적.</li>
+              <li><strong>차익실현/손절:</strong> 반등 시 전일 낙폭의 절반 회복 구간에서는 일부 차익실현, 전일 저점 훼손 시 손절 또는 현금비중 확대.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec5">
+        <div class="section-head"><h2>05 결론</h2><span>Conclusion</span></div>
+        <div class="card">
+          <div class="kvs">
+            <div class="kv"><div class="k">오늘 판단</div><div class="v">7월 17일 국내 증시는 휴장이다. 따라서 오늘의 최적 전략은 매매 실행이 아니라 다음 개장 방향성을 좌우할 해외 변수 점검이다.</div></div>
+            <div class="kv"><div class="k">핵심 변수</div><div class="v">SOX -4.29%, NQ 선물 -0.32%, ES 선물 -0.17%, USD/KRW 1,477.73, 삼성전자 255,000원, SK하이닉스 1,842,000원.</div></div>
+            <div class="kv"><div class="k">실무적 결론</div><div class="v">재개장 전까지는 반도체 추가 악재 여부와 선물 반등 여부를 확인하고, 재개장 시에는 시초가 추격보다 지지선 확인 후 분할 대응이 적절하다.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <strong>Compliance Notice</strong><br>
+        본 자료는 공개 시세와 공개 뉴스 헤드라인을 바탕으로 작성한 정보 제공용 문서이며, 특정 투자행위를 권유하지 않습니다. 투자 판단과 결과 책임은 투자자 본인에게 있습니다.
+        <div class="source">Data sources: Yahoo Finance 공개 시세 페이지(browser 확인), Google News RSS 공개 피드, Reuters/WSJ/IBD/국내 언론 제목 참조. Yahoo Finance query API는 401 제한으로 직접 API 수집이 막혀 브라우저 렌더링 값과 공개 RSS를 사용함.</div>
+        <div class="source">Local file: C:\Users\zonot\market_reports\daily_market_strategy_2026-07-17.html</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
