@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily Market Strategy | 2026-07-26</title>
+<style>
+:root{--bg:#eef2f6;--paper:#fff;--ink:#162030;--body:#334155;--muted:#6b7280;--line:#d8e0ea;--line2:#e9eef5;--navy:#0f2440;--navy2:#22456f;--blue:#275cc8;--red:#ba2c2c;--green:#0f8a5f;--amber:#a36a11;--soft-blue:#f3f7fc;--soft-red:#fff4f4;--soft-green:#f2fbf6;--soft-amber:#fff8ee;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--radius:12px;--shadow:0 10px 28px rgba(15,23,42,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.52;word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+a{color:inherit} button{font:inherit}
+.page{max-width:760px;margin:0 auto;padding:10px}.sheet{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}.topbar{height:8px;background:linear-gradient(90deg,var(--navy),var(--navy2) 70%,#8396ad)}
+.cover{padding:16px 16px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f8fafc 72%)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+h1{margin:0;color:var(--navy);font-size:23px;line-height:1.2;letter-spacing:-.03em}.subtitle{margin:8px 0 0;color:#425066;font-size:13px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.meta-card,.summary,.toc,.section,.decision,.compliance,.notice{border:1px solid var(--line);border-radius:var(--radius);background:#fff}.meta-card{padding:10px 11px;background:#fbfcfe}.meta-label{display:block;font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}.meta-value{color:var(--ink);font-weight:700}
+.notice{margin-top:10px;padding:11px 12px;background:var(--soft-amber);border-left:4px solid var(--amber)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end;padding:10px 16px;border-bottom:1px solid var(--line);background:#fafbfd}.btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:9px 12px;font-weight:800;min-height:44px;cursor:pointer}.btn:hover{background:#f3f7fc}
+main{padding:12px}.summary{padding:12px;background:var(--soft-blue)}.summary h2,.toc h2,.section h2,.decision h2,.compliance h2{margin:0 0 8px;color:var(--navy);font-size:16px;letter-spacing:-.02em}.summary p{margin:0;color:#304055}
+.toc{margin-top:10px;padding:12px}.toc-list{display:grid;gap:7px}.toc a{text-decoration:none;padding:8px 10px;border:1px solid var(--line2);border-radius:10px;background:#fcfdff}
+.section{margin-top:10px;padding:12px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}.section-head h2{margin:0;font-size:17px}.section-head span{font-size:11px;color:var(--muted);font-family:var(--mono);font-weight:700}.sub{margin:8px 0 0;color:var(--muted);font-size:12px}
+.cards{display:grid;gap:8px;margin-top:10px}.cards.three{grid-template-columns:1fr}.metric{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;min-width:0}.metric .k{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase}.metric .v{margin-top:4px;font-size:18px;line-height:1.15;font-weight:900;color:var(--ink)}.metric .c{margin-top:4px;font-size:12px;font-weight:800}
+.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--blue)}
+.kv{display:grid;gap:7px;margin-top:10px}.row{display:grid;grid-template-columns:95px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2)}.row:last-child{border-bottom:0;padding-bottom:0}.label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}.value{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.scenario-stack,.split{display:grid;gap:8px;margin-top:10px}.panel,.scenario{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.panel h3,.scenario h3{margin:0 0 6px;color:var(--navy);font-size:14px;line-height:1.35}.scenario p{margin:0;color:var(--body)}.panel ul{margin:8px 0 0;padding-left:18px;color:var(--body)}li+li{margin-top:5px}
+.scenario-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:6px}.scenario-head strong{font-family:var(--mono);color:var(--navy)}.pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.03em;margin-bottom:6px}.pill.base{background:#e9eef8;color:#18345f}.pill.bull{background:#eaf8f0;color:#0f7f58}.pill.bear{background:#fff0f0;color:#b62828}.scenario-action{margin-top:8px;color:var(--navy);font-weight:800}
+.watch{background:var(--soft-blue)}.risk{background:var(--soft-red)}.action{background:var(--soft-green)}
+.decision{margin-top:10px;padding:12px;background:linear-gradient(180deg,#fff,#fbfcfe)}.decision p{margin:0;color:var(--body)}.newslist{margin:0;padding-left:18px}.newslist .src{color:var(--muted);font-size:12px}
+.compliance{margin-top:10px;padding:12px;font-size:12px;color:var(--muted);line-height:1.58}.footerline{display:flex;justify-content:space-between;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line2);font-family:var(--mono);font-size:11px;color:#8590a3}
+@media (min-width:560px){.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}.split{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{body{background:#fff}.page{max-width:none;padding:0}.sheet{box-shadow:none;border:0}.toolbar{display:none}.summary,.toc,.section,.decision,.compliance,.notice,.meta-card{break-inside:avoid}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <article class="sheet">
+    <div class="topbar"></div>
+    <header class="cover">
+      <div class="eyebrow">Daily Market Strategy</div>
+      <h1>Daily Market Strategy | 2026-07-26</h1>
+      <p class="subtitle">한국 주식시장 장전 판단 메모. 오늘은 일요일 휴장일이므로, 실제 매매 기준은 다음 거래일인 2026-07-27 개장 전 체크리스트 관점으로 정리했습니다.</p>
+      <div class="meta">
+        <div class="meta-card"><span class="meta-label">발간 시점</span><div class="meta-value">2026-07-26 08:06 KST 확인</div></div>
+        <div class="meta-card"><span class="meta-label">시장 상태</span><div class="meta-value">KRX 휴장일(일) / 다음 정규장 대비</div></div>
+        <div class="meta-card"><span class="meta-label">핵심 포커스</span><div class="meta-value">반도체 낙폭 안정 여부, 코스피 6,650.41 지지, 실적·FOMC 대기</div></div>
+        <div class="meta-card"><span class="meta-label">작성 기준</span><div class="meta-value">네이버 금융·CNBC·Google News RSS 공개 데이터</div></div>
+      </div>
+      <div class="notice"><strong>Weekend Note.</strong> 미국 선물 수치 조회는 Yahoo Finance quote API 차단, MarketWatch/Investing 접근 제한으로 숫자 확인이 원활하지 않았습니다. 선물은 방향성 체크 항목으로만 반영했고, 수치 미확인 부분은 리포트 하단에 별도 고지했습니다.</div>
+    </header>
+    <div class="toolbar"><button class="btn" onclick="window.print()">PDF 저장 / 인쇄</button></div>
+    <main>
+      <section class="summary">
+        <h2>Executive Summary</h2>
+        <p>오늘은 일요일로 KRX 현물시장이 휴장입니다. 따라서 본 문서는 2026-07-27 개장 전 판단 메모로 읽는 편이 적절합니다. 전일 국내는 코스피 -5.72%, 코스닥 -5.32%로 급락했고, 삼성전자 -7.59%, SK하이닉스 -8.34%로 반도체 조정이 컸습니다. 미국은 다우 +0.46%, S&amp;P500 +0.05%로 방어했지만 나스닥 -0.64%, SOX -4.25%로 기술주 체력은 약했습니다. 원/달러는 1,463.10원(-0.91%)으로 원화는 상대적으로 안정됐지만, 다음 거래일 실전 판단은 반도체 낙폭 축소와 코스피 6,650.41~6,690.62 구간 방어 여부에 달려 있습니다.</p>
+      </section>
+
+      <nav class="toc" aria-label="목차">
+        <h2>Contents</h2>
+        <div class="toc-list">
+          <a href="#s1">01 시장 데이터 요약</a>
+          <a href="#s2">02 장전 투자 판단 및 시나리오</a>
+          <a href="#s3">03 오늘 핵심 가격대 및 체크포인트</a>
+          <a href="#s4">04 리스크 및 매매 전략</a>
+          <a href="#s5">05 결론</a>
+        </div>
+      </nav>
+
+      <section class="section" id="s1">
+        <div class="section-head"><h2>01. 시장 데이터 요약</h2><span>Market Snapshot</span></div>
+        <p class="sub">국내·해외 종가는 네이버 금융 공개 페이지, SOX·VIX·원자재·비트코인은 CNBC 공개 호가 페이지, 뉴스는 Google News RSS 기준입니다.</p>
+        <div class="cards three">
+          <div class="metric"><div class="k">KOSPI</div><div class="v">6,690.62</div><div class="c down">-5.72%</div></div>
+          <div class="metric"><div class="k">KOSDAQ</div><div class="v">748.22</div><div class="c down">-5.32%</div></div>
+          <div class="metric"><div class="k">삼성전자</div><div class="v">249,500원</div><div class="c down">-7.59%</div></div>
+          <div class="metric"><div class="k">SK하이닉스</div><div class="v">1,759,000원</div><div class="c down">-8.34%</div></div>
+          <div class="metric"><div class="k">다우</div><div class="v">51,947.25</div><div class="c up">+0.46%</div></div>
+          <div class="metric"><div class="k">S&amp;P 500</div><div class="v">7,411.98</div><div class="c up">+0.05%</div></div>
+          <div class="metric"><div class="k">NASDAQ</div><div class="v">24,975.82</div><div class="c down">-0.64%</div></div>
+          <div class="metric"><div class="k">SOX</div><div class="v">11,818.89</div><div class="c down">-4.25%</div></div>
+          <div class="metric"><div class="k">VIX</div><div class="v">18.58</div><div class="c down">-0.64%</div></div>
+          <div class="metric"><div class="k">USD/KRW</div><div class="v">1,463.10</div><div class="c down">-0.91%</div></div>
+          <div class="metric"><div class="k">WTI</div><div class="v">90.47</div><div class="c down">-1.87%</div></div>
+          <div class="metric"><div class="k">Bitcoin</div><div class="v">64,366.47</div><div class="c flat">등락률 확인 제한</div></div>
+        </div>
+        <div class="split">
+          <div class="panel watch">
+            <h3>아시아 마지막 확인</h3>
+            <div class="kv">
+              <div class="row"><div class="label">Nikkei 225</div><div class="value">64,611.15 / -2.73%</div></div>
+              <div class="row"><div class="label">Hang Seng</div><div class="value">24,963.23 / -0.98%</div></div>
+              <div class="row"><div class="label">Shanghai</div><div class="value">3,814.20 / -1.61%</div></div>
+              <div class="row"><div class="label">미국 선물</div><div class="value">주말 아시아 시간대 공개 수치 확인 제한. 월요일 개장 전 재확인 필요.</div></div>
+            </div>
+          </div>
+          <div class="panel watch">
+            <h3>뉴스 체크 포인트</h3>
+            <ul>
+              <li>다음주 SK하이닉스·삼성전자 실적 발표가 코스피 방향성의 핵심 변수로 거론됨.</li>
+              <li>미국 빅테크 실적과 FOMC 일정이 동시 대기 중이라는 주간전망 보도가 확인됨.</li>
+              <li>삼성전자·SK하이닉스 관련 개별 호재성 헤드라인은 존재하나 단기 주가는 실적과 수급 확인이 우선입니다.</li>
+              <li>한국 증시 변동성과 레버리지 쏠림을 경계하는 기사 비중이 높아, 월요일도 추격보다 변동성 관리가 우선입니다.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="s2">
+        <div class="section-head"><h2>02. 장전 투자 판단 및 시나리오</h2><span>Scenario</span></div>
+        <p class="sub">휴장일 기준의 다음 거래일 사전 확률 판단입니다. 확률은 공개 시세와 헤드라인 맥락을 바탕으로 한 정성적 추정입니다.</p>
+        <div class="scenario-stack">
+          <article class="scenario base">
+            <div class="scenario-head"><div><span class="pill base">기본</span><h3>급락 이후 약세-횡보, 반도체 확인 전 보수 대응</h3></div><strong>55%</strong></div>
+            <p>국내 급락 후 기술적 반등 욕구는 남아 있지만, 나스닥 -0.64%와 SOX -4.25%가 동시에 약했습니다. 코스피가 6,650.41~6,690.62 지지 구간을 방어하고 삼성전자·SK하이닉스가 전일 종가를 회복하는지 먼저 확인해야 합니다.</p>
+            <div class="scenario-action">대응: 시초가 추격보다 첫 15~30분 가격 유지와 거래대금 확인 뒤 분할 접근.</div>
+          </article>
+          <article class="scenario bull">
+            <div class="scenario-head"><div><span class="pill bull">상승</span><h3>과매도 반등 + 실적 기대 선반영</h3></div><strong>20%</strong></div>
+            <p>원/달러 -0.91%, VIX -0.64% 등 심리 지표가 추가 악화 없이 유지되고, 실적 기대 뉴스가 반도체 대형주 매수세로 연결되면 숏커버 성격의 반등이 가능합니다.</p>
+            <div class="scenario-action">대응: 삼성전자 25만원 회복 안착, SK하이닉스 180만원 재돌파 시 강한 종목 위주 제한적 추세 대응.</div>
+          </article>
+          <article class="scenario bear">
+            <div class="scenario-head"><div><span class="pill bear">하락</span><h3>반도체 추가 훼손과 재차 저점 테스트</h3></div><strong>25%</strong></div>
+            <p>주말 사이 미국 선물 확인은 제한됐지만, 월요일 아시아 시간대에 기술주 선물이 약세로 열리거나 국내 반도체가 전일 종가 아래에서 밀리면 코스피 6,650.41 재시험 가능성이 있습니다.</p>
+            <div class="scenario-action">대응: 지수와 반도체 동반 이탈 시 신규 매수 지연, 현금 비중 우선.</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="s3">
+        <div class="section-head"><h2>03. 오늘 핵심 가격대 및 체크포인트</h2><span>Levels &amp; Checklist</span></div>
+        <div class="split">
+          <div class="panel">
+            <h3>가격대 체크</h3>
+            <div class="kv">
+              <div class="row"><div class="label">KOSPI 지지</div><div class="value">6,650.41 ~ 6,690.62<br>전일 장중 저가와 종가. 다음 거래일 첫 방어선.</div></div>
+              <div class="row"><div class="label">KOSPI 저항</div><div class="value">7,000.78<br>전일 장중 고가. 반등 신뢰 회복 1차 확인선.</div></div>
+              <div class="row"><div class="label">KOSDAQ 지지</div><div class="value">746.50 ~ 748.22<br>성장주 낙폭 안정 확인 구간.</div></div>
+              <div class="row"><div class="label">KOSDAQ 저항</div><div class="value">777.50<br>회복 시도 강도 확인 구간.</div></div>
+              <div class="row"><div class="label">삼성전자</div><div class="value">249,500원 종가 회복 유지 여부<br>25만원선 안착 시 대형주 심리 개선.</div></div>
+              <div class="row"><div class="label">SK하이닉스</div><div class="value">1,759,000원 종가 회복 여부<br>180만원 재돌파 시 반도체 투심 완화.</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>장전 체크리스트</h3>
+            <ul>
+              <li>삼성전자·SK하이닉스가 시초가 이후 전일 종가를 지키는지</li>
+              <li>코스피가 6,650.41 하회를 막고 거래대금이 반등으로 이어지는지</li>
+              <li>원/달러가 1,463.10원 수준에서 재급등하지 않는지</li>
+              <li>나스닥/반도체 선물 약세 출발 여부(수치 확인 제한, 방향만 재확인)</li>
+              <li>실적 기대 뉴스가 실제 수급 유입으로 연결되는지</li>
+            </ul>
+          </div>
+        </div>
+        <div class="split">
+          <div class="panel watch">
+            <h3>시장 뉴스</h3>
+            <ul class="newslist">
+              <li>"한국 증시는 카지노, 투자자들은 도박꾼?"…외신의 뼈아픈 경고 <span class="src">· 주간조선</span></li>
+              <li>BCA: 중국으로 선회하라…한국 증시서 3개월 되돌림 거래 권고 <span class="src">· Investing.com 한국어</span></li>
+              <li>[마켓인사이트] 반등 시도하다 또 출렁…코스피 변동성 이어지나 <span class="src">· 매일경제 마켓</span></li>
+              <li>“韓증시는 카지노…도박꾼 된 개미들, 깊이 빠져들었다” 삼전닉스 레버리지 ‘저격’ <span class="src">· 서울신문</span></li>
+            </ul>
+          </div>
+          <div class="panel watch">
+            <h3>반도체 뉴스</h3>
+            <ul class="newslist">
+              <li>다음주 SK하이닉스·삼성전자 실적 발표…코스피 향방은 <span class="src">· 연합인포맥스</span></li>
+              <li>[주간증시전망] 美 빅테크 이어 SK하이닉스도 실적 발표… FOMC 개최 <span class="src">· Chosunbiz</span></li>
+              <li>SK하이닉스 업은 크레딧물…높아진 캐리 매력에 투심 살아날까 <span class="src">· 연합뉴스</span></li>
+              <li>엔비디아, SK하이닉스서 731조원대 AI 메모리 공급 확보 유력 <span class="src">· 글로벌이코노믹</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="s4">
+        <div class="section-head"><h2>04. 리스크 및 매매 전략</h2><span>Risk &amp; Strategy</span></div>
+        <div class="split">
+          <div class="panel risk">
+            <h3>핵심 리스크</h3>
+            <ul>
+              <li><strong>반도체 약세 지속:</strong> SOX -4.25% 여파가 월요일 아시아 장에서 재차 반영될 수 있습니다.</li>
+              <li><strong>실적 이벤트 대기:</strong> SK하이닉스·삼성전자 실적 기대가 높아 숫자 확인 전 변동성이 커질 수 있습니다.</li>
+              <li><strong>정책/매크로 일정:</strong> FOMC, 미국 빅테크 실적, 해외 위험자산 심리 변화가 단기 방향성을 좌우합니다.</li>
+              <li><strong>주말 공백:</strong> 미국 선물 공개 수치 확인이 제한된 상태라 월요일 시초가 방향이 급변할 수 있습니다.</li>
+            </ul>
+          </div>
+          <div class="panel action">
+            <h3>매매 전략</h3>
+            <ul>
+              <li><strong>시초가 대응:</strong> 강한 갭상승 추격은 지양하고, 첫 15~30분 가격 유지와 거래대금 동반 여부를 먼저 확인합니다.</li>
+              <li><strong>분할 매수 타이밍:</strong> 코스피 6,650.41 방어 + 삼성전자 25만원선 안착 + SK하이닉스 180만원 재돌파가 동반될 때 30%-30%-40% 방식 분할 접근이 유리합니다.</li>
+              <li><strong>차익실현 조건:</strong> 장초반 급반등 후 반도체 대형주가 전일 종가 위에서 거래량 없이 둔화되면 단기 물량 일부 축소를 검토합니다.</li>
+              <li><strong>손절/축소 조건:</strong> 코스피 6,650.41 이탈, 삼성전자 249,500원 재이탈, SK하이닉스 1,759,000원 재이탈, 환율 급등이 동반되면 보수적으로 비중을 낮춥니다.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="s5">
+        <div class="section-head"><h2>05. 결론</h2><span>Conclusion</span></div>
+        <div class="decision">
+          <h2>한 줄 결론</h2>
+          <p>다음 거래일의 기본 전략은 <strong>반도체 낙폭 안정 확인 전까지 추격보다 보수적 분할 대응</strong>입니다. 국내 급락 이후 기술적 반등 가능성은 열려 있지만, 미국 나스닥·SOX 약세와 실적/FOMC 대기 구간을 감안하면 먼저 지지 확인이 필요합니다.</p>
+          <div class="kv">
+            <div class="row"><div class="label">우선 순위</div><div class="value">반도체 대형주 종가 회복, 코스피 6,650.41 방어, 원/달러 안정 여부</div></div>
+            <div class="row"><div class="label">공격 조건</div><div class="value">삼성전자 25만원선 안착, SK하이닉스 180만원 재돌파, 시초가 이후 거래대금 개선</div></div>
+            <div class="row"><div class="label">방어 조건</div><div class="value">지수와 반도체 동반 이탈, 환율 재급등, 미국 선물 약세 확인</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="compliance">
+        <h2>Compliance Notice</h2>
+        <p>본 자료는 공개 시세 및 공개 뉴스 피드 기반의 정보 제공용 문서이며, 특정 금융투자상품의 매수 또는 매도를 권유하기 위한 것이 아닙니다. 자료에 포함된 의견은 작성 시점의 정성적 판단으로, 투자 결과에 대한 책임을 보장하지 않습니다. 투자 결정은 반드시 본인의 판단과 책임 하에 이루어져야 합니다.</p>
+        <p>데이터 한계: Yahoo Finance quote API는 Unauthorized 응답으로 차단되었고, MarketWatch/Investing 일부 페이지는 봇 차단 또는 접근 제한이 확인되었습니다. 이에 따라 미국 선물 수치는 공개 접근 가능한 범위에서 대체 소스를 시도했으나 최종 수치 확보가 제한되어, 본문에는 방향성 체크 항목으로만 반영했습니다.</p>
+        <div class="footerline"><span>Sources: Naver Finance / CNBC / Google News RSS</span><span>Document ID: DMS-20260726-KR-EQ</span></div>
+      </section>
+    </main>
+  </article>
+</div>
+</body>
+</html>
