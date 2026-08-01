@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Market Strategy | 2026-08-02</title>
+  <style>
+    :root{
+      --bg:#edf1f5;--paper:#fff;--ink:#102033;--body:#334155;--muted:#66758a;--line:#dde5ee;--navy:#102742;--navy2:#1f3a5b;--soft:#f6f8fb;
+      --up:#0b6b43;--upbg:#edf9f2;--down:#b42318;--downbg:#fff3f2;--flat:#7b8794;--flatbg:#f4f6f8;--amber:#8c5a12;--amberbg:#fff7ea;
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--body);font-family:var(--sans);font-size:14px;line-height:1.55}
+    body{word-break:keep-all;overflow-wrap:anywhere}
+    a{color:#174ea6;text-decoration:none} a:hover{text-decoration:underline}
+    .page{max-width:760px;margin:0 auto;background:var(--paper);min-height:100vh;box-shadow:0 10px 40px rgba(16,39,66,.08)}
+    .topbar{height:8px;background:linear-gradient(90deg,var(--navy),#385a82 68%,#98a9bb)}
+    .cover{padding:18px 16px 14px;background:linear-gradient(180deg,#fff,#f8fafc);border-bottom:1px solid var(--line)}
+    .kicker{font-size:11px;font-weight:800;letter-spacing:.08em;color:#36557a;text-transform:uppercase}
+    h1{margin:8px 0 8px;font-size:23px;line-height:1.2;color:var(--navy);letter-spacing:-.03em}
+    .subtitle{margin:0;color:#42556e;font-size:13px}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .meta-card{border:1px solid var(--line);background:#fbfcfe;padding:10px 11px;border-radius:10px;min-width:0}
+    .meta-card dt{margin:0 0 4px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .meta-card dd{margin:0;color:var(--ink);font-weight:700;line-height:1.4}
+    .toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fbfcfe;justify-content:flex-end}
+    .btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--navy);padding:8px 10px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;min-height:38px}
+    .btn:hover{background:#f4f7fb}
+    main{padding:14px 16px 20px}
+    .summary{padding:12px 13px;border:1px solid var(--line);border-top:3px solid var(--navy);background:#f5f8fc;border-radius:12px}
+    .summary h2,.toc h2,.section-title h2,.compliance h2{margin:0 0 6px;font-size:18px;line-height:1.25;color:var(--navy);letter-spacing:-.02em}
+    .summary p{margin:0}
+    .toc{margin-top:12px;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    .toc nav{display:grid;gap:7px}
+    .toc a{font-size:13px;color:#334155}
+    section{margin-top:18px}
+    .section-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-end;border-bottom:2px solid var(--navy);padding-bottom:7px;margin-bottom:10px}
+    .section-title span{font-size:11px;font-family:var(--mono);color:var(--muted);font-weight:800}
+    .note{font-size:12px;color:var(--muted);margin:0 0 10px}
+    .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .metric{border:1px solid var(--line);border-radius:12px;padding:10px 10px 9px;min-width:0;background:#fff}
+    .metric.up{background:var(--upbg)} .metric.down{background:var(--downbg)} .metric.flat{background:var(--flatbg)}
+    .metric-name{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em}
+    .metric-val{margin-top:4px;color:var(--ink);font-size:16px;font-weight:800;line-height:1.25;word-break:break-all}
+    .metric-chg{margin-top:3px;font-size:12px;font-weight:800}
+    .up .metric-chg{color:var(--up)} .down .metric-chg{color:var(--down)} .flat .metric-chg{color:var(--flat)}
+    .scenario-list,.level-list,.strategy-list,.risk-list,.checkpoint-list{display:grid;gap:8px}
+    .scenario,.level,.card{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff}
+    .scenario-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+    .badge{display:inline-flex;align-items:center;min-height:24px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.03em}
+    .base{background:#e9eff8;color:#183b63} .bull{background:#ecf8f1;color:#0b6b43} .bear{background:#fff1ef;color:#b42318}
+    .prob{font-family:var(--mono);font-size:12px;font-weight:800;color:var(--navy)}
+    .scenario p,.level p,.card p{margin:0;color:var(--body)}
+    .scenario p+p,.level p+p,.card p+p{margin-top:5px}
+    .label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .value{display:block;margin-top:3px;font-size:15px;font-weight:800;color:var(--ink)}
+    .split{display:grid;gap:8px}
+    ul{margin:7px 0 0;padding-left:18px} li+li{margin-top:5px} .bullet-head{overflow-wrap:anywhere}
+    .news-grid{display:grid;gap:8px}
+    .news-card{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff}
+    .news-card h3,.card h3{margin:0 0 6px;font-size:15px;color:var(--navy);line-height:1.3}
+    .keyrow{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:start}
+    .keyrow+.keyrow{margin-top:10px;padding-top:10px;border-top:1px solid #eef2f6}
+    .keyrow .k{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .keyrow .v{color:var(--ink);font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+    .callout{border-radius:12px;padding:12px 13px;border:1px solid var(--line)}
+    .callout.amber{background:var(--amberbg);border-top:3px solid var(--amber)}
+    .callout.green{background:var(--upbg);border-top:3px solid var(--up)}
+    .callout.red{background:var(--downbg);border-top:3px solid var(--down)}
+    .conclusion{border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:12px;background:#f8fbff;padding:12px 13px}
+    .conclusion .head{font-size:16px;font-weight:900;color:var(--navy);margin:0 0 7px}
+    .compliance{margin-top:18px;padding:12px 13px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+    .sources{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+    .footerline{display:flex;justify-content:space-between;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:#7b8794}
+    @media (min-width:640px){
+      .cover{padding:22px 22px 18px} .toolbar{padding:10px 22px} main{padding:18px 22px 26px}
+      .meta{grid-template-columns:repeat(4,minmax(0,1fr))} .metrics{grid-template-columns:repeat(4,minmax(0,1fr))} .split{grid-template-columns:1fr 1fr} .news-grid{grid-template-columns:1fr 1fr}
+      h1{font-size:24px}
+    }
+    @media print{
+      body{background:#fff} .page{box-shadow:none;max-width:none} .toolbar{display:none} .metric,.scenario,.level,.card,.news-card,.summary,.toc,.conclusion{break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar"></div>
+    <header class="cover">
+      <div class="kicker">Daily Market Strategy</div>
+      <h1>Daily Market Strategy | 2026-08-02</h1>
+      <p class="subtitle">한국증시 휴장일(일요일) / 차기 거래일 대비 · 작성 시점 2026-08-02 08:08 KST · 휴장일이므로 실시간 국내 장전 호가 대신 최신 종가·선물·공개 뉴스 기반으로 판단.</p>
+      <dl class="meta">
+        <div class="meta-card"><dt>발간일</dt><dd>2026-08-02</dd></div>
+        <div class="meta-card"><dt>분석 시점</dt><dd>2026-08-02 08:08 KST</dd></div>
+        <div class="meta-card"><dt>적용 관점</dt><dd>2026-08-03 한국 주식시장 장전</dd></div>
+        <div class="meta-card"><dt>문서 성격</dt><dd>모바일 우선 장전 전략 메모</dd></div>
+      </dl>
+    </header>
+    <div class="toolbar"><button class="btn" onclick="window.print()">PDF 저장 / 인쇄</button></div>
+    <main>
+      <section class="summary" id="summary">
+        <h2>Executive Summary</h2>
+        <p>주말 기준 한국 현물시장은 휴장이다. 따라서 본 문서는 2026-08-03 개장을 염두에 둔 장전 참고자료로 작성했다. 미국 증시는 S&amp;P500 +0.70%, 나스닥 +1.00%로 위험선호가 유지됐고, VIX는 -6.44%로 낮아졌다. 다만 USD/KRW는 +1.13%로 원화 약세 부담이 남아 있고, 전 거래일 KOSPI +17.91%·삼성전자 +26.81%·SK하이닉스 +29.95% 급등 이후 과열 해소 과정도 경계할 필요가 있다.</p>
+      </section>
+      <section class="toc" aria-label="목차">
+        <h2>Contents</h2>
+        <nav>
+          <a href="#sec1">01 시장 데이터 요약</a>
+          <a href="#sec2">02 장전 투자 판단 및 시나리오</a>
+          <a href="#sec3">03 오늘 핵심 가격대 및 체크포인트</a>
+          <a href="#sec4">04 리스크 및 매매 전략</a>
+          <a href="#sec5">05 결론</a>
+        </nav>
+      </section>
+
+      <section id="sec1">
+        <div class="section-title"><h2>01 시장 데이터 요약</h2><span>Market Snapshot</span></div>
+        <p class="note">공개 시세 기준 최신 종가/선물 값 요약. 휴장일에는 국내 호가 대신 직전 거래일 종가를 사용.</p>
+        <div class="metrics"><article class="metric up"><div class="metric-name">S&amp;P 500</div><div class="metric-val">7,489.72</div><div class="metric-chg">+0.70%</div></article><article class="metric up"><div class="metric-name">NASDAQ</div><div class="metric-val">25,373.85</div><div class="metric-chg">+1.00%</div></article><article class="metric up"><div class="metric-name">SOX</div><div class="metric-val">11,311.08</div><div class="metric-chg">+0.07%</div></article><article class="metric down"><div class="metric-name">VIX</div><div class="metric-val">15.99</div><div class="metric-chg">-6.44%</div></article><article class="metric up"><div class="metric-name">나스닥 선물</div><div class="metric-val">28,404.25</div><div class="metric-chg">+0.59%</div></article><article class="metric up"><div class="metric-name">S&amp;P 선물</div><div class="metric-val">7,519.25</div><div class="metric-chg">+0.63%</div></article><article class="metric up"><div class="metric-name">USD/KRW</div><div class="metric-val">1,436.6</div><div class="metric-chg">+1.13%</div></article><article class="metric up"><div class="metric-name">WTI</div><div class="metric-val">84.67</div><div class="metric-chg">+1.29%</div></article><article class="metric down"><div class="metric-name">금</div><div class="metric-val">4,049.1</div><div class="metric-chg">-1.24%</div></article><article class="metric down"><div class="metric-name">비트코인</div><div class="metric-val">62,779.57</div><div class="metric-chg">-0.05%</div></article><article class="metric up"><div class="metric-name">니케이225</div><div class="metric-val">64,362.02</div><div class="metric-chg">+4.03%</div></article><article class="metric up"><div class="metric-name">상해종합</div><div class="metric-val">3,832.26</div><div class="metric-chg">+0.72%</div></article><article class="metric up"><div class="metric-name">항셍</div><div class="metric-val">25,884.43</div><div class="metric-chg">+0.10%</div></article><article class="metric up"><div class="metric-name">KOSPI</div><div class="metric-val">6,595.45</div><div class="metric-chg">+17.91%</div></article><article class="metric up"><div class="metric-name">KOSDAQ</div><div class="metric-val">719.76</div><div class="metric-chg">+11.63%</div></article><article class="metric up"><div class="metric-name">삼성전자</div><div class="metric-val">262,500원</div><div class="metric-chg">+26.81%</div></article><article class="metric up"><div class="metric-name">SK하이닉스</div><div class="metric-val">1,718,000원</div><div class="metric-chg">+29.95%</div></article></div>
+        <div class="news-grid" style="margin-top:10px"><div class="news-card"><h3>한국증시 뉴스 체크</h3><ul><li><span class="bullet-head">홍콩 CSOP, KOSPI 200 커버드콜 ETF 홍콩거래소 상장 - v.daum.net</span></li><li><span class="bullet-head">양 지수 전례 없는 급반등 마감 - KB Think</span></li><li><span class="bullet-head">[‘클릭’ 증시] MS 효과에 KOSPI 1000p 껑충...강력한 회복력 - 공공뉴스</span></li></ul></div><div class="news-card"><h3>삼성전자 뉴스 체크</h3><ul><li><span class="bullet-head">Samsung and SK hynix semiconductors, befitting their lofty value, travel by plane rather than by ship - 경향신문</span></li><li><span class="bullet-head">Korea’s chip boom feels great, but risks are growing - Korea JoongAng Daily</span></li><li><span class="bullet-head">KOSPI Soars 18%: A Warning to Retail Investors Who May Miss Their Chance to Exit - 최보식의언론</span></li></ul></div><div class="news-card"><h3>SK하이닉스 뉴스 체크</h3><ul><li><span class="bullet-head">&quot;삼성전자, SK하이닉스 추월하고 1위&quot;…파격 전망 나왔다 [강경주의 테크X] - 한국경제</span></li><li><span class="bullet-head">“실탄 100조 모은다”… SK하이닉스, 하반기 美 상장 잰걸음 [주총 줌인] - 쿠키뉴스</span></li><li><span class="bullet-head">[AI 패권전쟁 ②] AI에 100달러 투자하면 누가 가장 많이 가져갈까? - climatepol.com</span></li></ul></div><div class="news-card"><h3>보조 헤드라인</h3><ul><li><span class="bullet-head">South Korea Chip Exports Top $40B for Second Straight Month as KOSPI Stages Record Recovery - Tech Times</span></li><li><span class="bullet-head">South Korea July exports beat forecasts on robust demand for AI investments - Reuters</span></li><li><span class="bullet-head">Even After Surge, Targets Sit at Half: Samsung Electronics and SK Hynix Gap Ratio Hits 96% - finance.biggo.com</span></li></ul></div></div>
+      </section>
+
+      <section id="sec2">
+        <div class="section-title"><h2>02 장전 투자 판단 및 시나리오</h2><span>Scenario Analysis</span></div>
+        <div class="scenario-list">
+          <article class="scenario">
+            <div class="scenario-head"><span class="badge base">기본 시나리오</span><span class="prob">가능성 50%</span></div>
+            <p>미국 지수와 선물은 우호적이지만, 전 거래일 국내 반도체·지수 급등폭이 매우 커서 장 초반에는 이익실현과 추세연장이 혼재될 가능성이 높다.</p>
+            <p><span class="label">대응</span> 시초가 추격보다 첫 30~60분 동안 KOSPI·삼성전자·SK하이닉스의 고가권 유지 여부를 확인한 뒤 분할 접근.</p>
+          </article>
+          <article class="scenario">
+            <div class="scenario-head"><span class="badge bull">상승 시나리오</span><span class="prob">가능성 18%</span></div>
+            <p>나스닥 선물 강세 지속, VIX 안정, 반도체 헤드라인 우호, 외국인 수급 재유입이 겹치면 반도체 대형주 중심의 추가 갭업 또는 고가권 안착이 가능하다.</p>
+            <p><span class="label">대응</span> 시초가 이후 눌림이 얕고 거래량이 유지되면 가장 강한 대형주 위주로 소규모 추세 추종.</p>
+          </article>
+          <article class="scenario">
+            <div class="scenario-head"><span class="badge bear">하락 시나리오</span><span class="prob">가능성 32%</span></div>
+            <p>USD/KRW 반등, 유가 상승, 주말 리스크 재부각, 직전 급등분 소화가 겹치면 시초가 고점 형성 뒤 변동성 확대 가능성을 열어둘 필요가 있다.</p>
+            <p><span class="label">대응</span> 전일 급등 종목은 손절·차익실현 기준을 더 짧게 두고, 지지선 이탈 시 현금 비중을 우선 복원.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="sec3">
+        <div class="section-title"><h2>03 오늘 핵심 가격대 및 체크포인트</h2><span>Levels & Checks</span></div>
+        <div class="level-list"><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">KOSPI 1차</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">6,543~6,648</div></div><div class="keyrow"><div class="k">의미</div><div class="v">직전 급반등 고점대 재확인 구간</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">시초가 상회 유지 시 추세 연장 가능성 유지</div></div></article><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">KOSPI 방어</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">6,464~6,727</div></div><div class="keyrow"><div class="k">의미</div><div class="v">장 초반 되돌림 허용 범위</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">이탈 시 과열 되돌림 심화 경계</div></div></article><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">KOSDAQ</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">709~731</div></div><div class="keyrow"><div class="k">의미</div><div class="v">중소형 성장주 추세 확인 구간</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">반도체 외 확산 여부 확인</div></div></article><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">삼성전자</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">257,000~268,000원</div></div><div class="keyrow"><div class="k">의미</div><div class="v">외국인 수급 체감 핵심</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">시초가 대비 거래량 수반 여부 확인</div></div></article><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">SK하이닉스</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">1,675,000~1,761,000원</div></div><div class="keyrow"><div class="k">의미</div><div class="v">HBM·반도체 모멘텀 바로미터</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">급등 후 눌림 방어 여부 확인</div></div></article><article class="level"><div class="keyrow"><div class="k">구분</div><div class="v">USD/KRW</div></div><div class="keyrow"><div class="k">가격대</div><div class="v">1,432~1,441</div></div><div class="keyrow"><div class="k">의미</div><div class="v">원화 방향성 체크</div></div><div class="keyrow"><div class="k">판단 기준</div><div class="v">상단 재돌파 시 외국인 수급 부담</div></div></article></div>
+        <div class="split" style="margin-top:10px">
+          <div class="card">
+            <h3>장중 체크포인트</h3>
+            <ul>
+              <li>KOSPI와 KOSDAQ이 시초가 위에서 거래량 감소 없이 버티는지 확인</li>
+              <li>삼성전자·SK하이닉스가 시초가 이탈 후 빠르게 회복하는지 여부</li>
+              <li>USD/KRW가 상단 재돌파하는지, 나스닥 선물 상승폭이 축소되는지 확인</li>
+              <li>반도체 외 2차전지·인터넷·바이오로 매수 확산이 나오는지 체크</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>수급·거래량 포인트</h3>
+            <ul>
+              <li>외국인 현물/선물 동반 순매수 여부</li>
+              <li>프로그램 매매가 매수 우위로 유지되는지 확인</li>
+              <li>전일 상한가·급등 종목은 거래대금 축소 시 변동성 확대에 유의</li>
+              <li>반도체 대형주 거래대금이 시장 전체를 계속 견인하는지 체크</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec4">
+        <div class="section-title"><h2>04 리스크 및 매매 전략</h2><span>Risk & Trading</span></div>
+        <div class="split">
+          <div class="callout red">
+            <h2 style="font-size:17px;margin:0 0 6px">리스크</h2>
+            <ul class="risk-list">
+              <li>직전 거래일 급등에 따른 차익실현 압력</li>
+              <li>USD/KRW 상승 지속 시 외국인 수급 둔화 가능성</li>
+              <li>유가 상승과 주말 뉴스 플로우가 위험선호를 흔들 수 있음</li>
+              <li>반도체 쏠림이 약해질 경우 지수 회복 탄력도 급격히 둔화될 수 있음</li>
+            </ul>
+          </div>
+          <div class="callout green">
+            <h2 style="font-size:17px;margin:0 0 6px">매매 전략</h2>
+            <ul class="strategy-list">
+              <li><strong>시초가 대응:</strong> 갭상승 출발 시 첫 15~30분 추격매수는 자제하고 고가권 안착 확인 우선.</li>
+              <li><strong>분할 매수:</strong> 핵심 대형주는 3회 분할(예: 30%-30%-40%)로 접근하고, 첫 매수는 지지 확인 후 집행.</li>
+              <li><strong>차익실현:</strong> 직전 거래일 급등 종목은 추가 급등 시 일부 비중 축소로 변동성 노출을 줄이는 전략이 유효.</li>
+              <li><strong>손절 조건:</strong> 시초가 및 핵심 지지선 동시 이탈, 환율 급등, 미국 선물 급반락이 겹치면 단기 포지션 축소.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout amber" style="margin-top:10px">
+          <h2 style="font-size:17px;margin:0 0 6px">전술 요약</h2>
+          <p>기본 전략은 <strong>"추격보다 확인, 한 번에보다 분할"</strong>이다. 반도체 대형주가 시초가를 지키며 거래량이 붙는다면 눌림 매수 시도가 가능하지만, 원화 약세와 선물 약화가 동시에 나타나면 직전 급등분 되돌림에 우선 대비하는 보수적 운용이 적절하다.</p>
+        </div>
+      </section>
+
+      <section id="sec5">
+        <div class="section-title"><h2>05 결론</h2><span>Conclusion</span></div>
+        <div class="conclusion">
+          <p class="head">차기 거래일 핵심 판단</p>
+          <div class="keyrow"><div class="k">시장 톤</div><div class="v">미국 위험선호는 유지되지만, 국내는 직전 급등의 소화 과정이 병행될 가능성이 높다.</div></div>
+          <div class="keyrow"><div class="k">우선순위</div><div class="v">반도체 대형주의 시초가 방어, KOSPI 고가권 유지, USD/KRW 안정 여부 순으로 확인.</div></div>
+          <div class="keyrow"><div class="k">실행 원칙</div><div class="v">추격매수보다 눌림 확인 후 분할 진입, 급등 보유분은 부분 차익실현과 손절선 재설정 병행.</div></div>
+          <div class="keyrow"><div class="k">한 줄 요약</div><div class="v">미국발 우호 흐름은 살아 있으나, 국내는 과열 반작용 가능성까지 함께 관리하는 보수적 강세 대응이 적절하다.</div></div>
+        </div>
+      </section>
+
+      <section class="compliance">
+        <h2>Compliance Notice</h2>
+        <p>본 자료는 공개 시세 및 공개 뉴스 헤드라인을 바탕으로 작성한 정보 제공 목적의 참고 문서이며, 특정 종목 또는 금융상품의 매수·매도를 권유하지 않는다. 시장 상황은 급변할 수 있으며, 최종 투자 판단과 책임은 투자자 본인에게 있다.</p>
+        <div class="sources">
+          <div class="label">데이터 한계 및 출처</div>
+          <ul><li>시세는 Yahoo Finance 공개 chart endpoint 종가/선물 값을 사용했다.</li><li>뉴스는 Google News RSS 공개 피드를 사용했으며, 본문은 헤드라인 수준의 정보만 반영했다.</li><li>작성 시점이 일요일이므로 국내 장전 실시간 호가·외국인 선물 동향은 확인할 수 없고, 차기 거래일 관점으로 해석했다.</li></ul>
+        </div>
+        <div class="footerline"><span>Source path: C:\Users\zonot\market_reports\daily_market_strategy_2026-08-02.html</span><span>Doc ID: DMS-20260802-KR</span></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
